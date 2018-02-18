@@ -55,8 +55,7 @@ public class User implements Serializable {
     private String sexe;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNaissance;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date timer;
+    private Double timer;
     @ManyToOne
     private Etablissement etablissement;
     @ManyToOne
@@ -207,11 +206,11 @@ public class User implements Serializable {
         this.dateNaissance = dateNaissance;
     }
 
-    public Date getTimer() {
+    public Double getTimer() {
         return timer;
     }
 
-    public void setTimer(Date timer) {
+    public void setTimer(Double timer) {
         this.timer = timer;
     }
 
