@@ -32,6 +32,14 @@ public class Contenu implements Serializable {
     @ManyToOne
     private Commentaire commentaire;
 
+    public Contenu() {
+    }
+
+    public Contenu(Long id) {
+        this.id = id;
+    }
+    
+
     public String getTexte() {
         return texte;
     }
@@ -80,10 +88,7 @@ public class Contenu implements Serializable {
         this.commentaire = commentaire;
     }
 
-    public Contenu(Long id) {
-        this.id = id;
-    }
-    
+   
 
     public Long getId() {
         return id;

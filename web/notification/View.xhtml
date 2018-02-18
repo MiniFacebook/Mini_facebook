@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NotificationViewDlg" widgetVar="NotificationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNotificationTitle}">
+            <h:form id="NotificationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNotificationLabel_texte}"/>
+                        <h:outputText value="#{notificationController.selected.texte}" title="#{bundle.ViewNotificationTitle_texte}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_dateNotification}"/>
+                        <h:outputText value="#{notificationController.selected.dateNotification}" title="#{bundle.ViewNotificationTitle_dateNotification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_userAction}"/>
+                        <h:outputText value="#{notificationController.selected.userAction}" title="#{bundle.ViewNotificationTitle_userAction}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_publication}"/>
+                        <h:outputText value="#{notificationController.selected.publication}" title="#{bundle.ViewNotificationTitle_publication}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_message}"/>
+                        <h:outputText value="#{notificationController.selected.message}" title="#{bundle.ViewNotificationTitle_message}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_aime}"/>
+                        <h:outputText value="#{notificationController.selected.aime}" title="#{bundle.ViewNotificationTitle_aime}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_invitation}"/>
+                        <h:outputText value="#{notificationController.selected.invitation}" title="#{bundle.ViewNotificationTitle_invitation}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_commentaire}"/>
+                        <h:outputText value="#{notificationController.selected.commentaire}" title="#{bundle.ViewNotificationTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewNotificationLabel_id}"/>
+                        <h:outputText value="#{notificationController.selected.id}" title="#{bundle.ViewNotificationTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NotificationViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
