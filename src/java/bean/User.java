@@ -51,8 +51,7 @@ public class User implements Serializable {
     private List<Message> messages;
     @OneToMany(mappedBy = "recepteurPublicartion")
     private List<Publication> publications;
-    @OneToMany(mappedBy = "user")
-    private List<Video> videos;
+    
     @OneToMany(mappedBy = "user")
     private List<Photo> photos;
     @OneToMany(mappedBy = "recepteur")
@@ -63,6 +62,8 @@ public class User implements Serializable {
     private List<EtablissementItem> etablissementItems;
     @OneToMany(mappedBy = "user")
     private List<EmploiItem> emploiItems;
+    @OneToMany(mappedBy = "user")
+    private List<Video> videos;
 
     public List<EmploiItem> getEmploiItems() {
         return emploiItems;
