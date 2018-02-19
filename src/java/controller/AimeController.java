@@ -32,6 +32,9 @@ public class AimeController implements Serializable {
     }
 
     public Aime getSelected() {
+         if (selected == null) {
+            selected = new Aime();
+        }
         return selected;
     }
 

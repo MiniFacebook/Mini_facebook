@@ -1,9 +1,9 @@
 package controller;
 
-import bean.Etablissement;
+import bean.Video;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.EtablissementFacade;
+import service.VideoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,26 +19,26 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "etablissementController")
+@ManagedBean(name = "videoController")
 @SessionScoped
-public class EtablissementController implements Serializable {
+public class VideoController implements Serializable {
 
     @EJB
-    private service.EtablissementFacade ejbFacade;
-    private List<Etablissement> items = null;
-    private Etablissement selected;
+    private service.VideoFacade ejbFacade;
+    private List<Video> items = null;
+    private Video selected;
 
-    public EtablissementController() {
+    public VideoController() {
     }
 
-    public Etablissement getSelected() {
+    public Video getSelected() {
          if (selected == null) {
-            selected = new Etablissement();
+            selected = new Video();
         }
         return selected;
     }
 
-    public void setSelected(Etablissement selected) {
+    public void setSelected(Video selected) {
         this.selected = selected;
     }
 
@@ -48,36 +48,36 @@ public class EtablissementController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private EtablissementFacade getFacade() {
+    private VideoFacade getFacade() {
         return ejbFacade;
     }
 
-    public Etablissement prepareCreate() {
-        selected = new Etablissement();
+    public Video prepareCreate() {
+        selected = new Video();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EtablissementCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("videoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("EtablissementUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("videoUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("EtablissementDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("videoDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Etablissement> getItems() {
+    public List<Video> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -112,24 +112,24 @@ public class EtablissementController implements Serializable {
         }
     }
 
-    public List<Etablissement> getItemsAvailableSelectMany() {
+    public List<Video> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Etablissement> getItemsAvailableSelectOne() {
+    public List<Video> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Etablissement.class)
-    public static class EtablissementControllerConverter implements Converter {
+    @FacesConverter(forClass = Video.class)
+    public static class videoControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            EtablissementController controller = (EtablissementController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "etablissementController");
+            VideoController controller = (VideoController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "videoController");
             return controller.getFacade().find(getKey(value));
         }
 
@@ -150,11 +150,11 @@ public class EtablissementController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Etablissement) {
-                Etablissement o = (Etablissement) object;
+            if (object instanceof Video) {
+                Video o = (Video) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Etablissement.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Video.class.getName()});
                 return null;
             }
         }

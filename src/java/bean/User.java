@@ -37,7 +37,7 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "recepteurPublicartion")
     private List<Publication> publications;
     @OneToMany(mappedBy = "user")
-    private List<video> videos;
+    private List<Video> videos;
     @OneToMany(mappedBy = "user")
     private List<Photo> photos;
     @OneToMany(mappedBy = "recepteur")
@@ -126,11 +126,11 @@ public class User implements Serializable {
         this.publications = publications;
     }
 
-    public List<video> getVideos() {
+    public List<Video> getVideos() {
         return videos;
     }
 
-    public void setVideos(List<video> videos) {
+    public void setVideos(List<Video> videos) {
         this.videos = videos;
     }
 
