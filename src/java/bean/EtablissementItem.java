@@ -7,12 +7,12 @@ package bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -20,71 +20,58 @@ import javax.persistence.Temporal;
  * @author lenovo
  */
 @Entity
-public class Etablissement implements Serializable {
-    
+public class EtablissementItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String libelle;
-    private String niveau;
-    private String formation;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date annee;
-    @OneToMany(mappedBy = "etablissement")
-    private List<EtablissementItem> etablissementItems;
+    private  Date dateDebut;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateFin;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Etablissement etablissement;
 
-    public Etablissement() {
+    public EtablissementItem() {
     }
 
-    public Etablissement(Long id) {
+    public EtablissementItem(Long id) {
         this.id = id;
     }
 
-    public List<EtablissementItem> getEtablissementItems() {
-        return etablissementItems;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public void setEtablissementItems(List<EtablissementItem> etablissementItems) {
-        this.etablissementItems = etablissementItems;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-   
-
-    public String getLibelle() {
-        return libelle;
+    public Date getDateFin() {
+        return dateFin;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
-    public String getNiveau() {
-        return niveau;
+    public User getUser() {
+        return user;
     }
 
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getFormation() {
-        return formation;
+    public Etablissement getEtablissement() {
+        return etablissement;
     }
 
-    public void setFormation(String formation) {
-        this.formation = formation;
+    public void setEtablissement(Etablissement etablissement) {
+        this.etablissement = etablissement;
     }
-
-    public Date getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(Date annee) {
-        this.annee = annee;
-    }
-    
-    
-   
     
 
     public Long getId() {
@@ -105,10 +92,10 @@ public class Etablissement implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Etablissement)) {
+        if (!(object instanceof EtablissementItem)) {
             return false;
         }
-        Etablissement other = (Etablissement) object;
+        EtablissementItem other = (EtablissementItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -117,8 +104,7 @@ public class Etablissement implements Serializable {
 
     @Override
     public String toString() {
-        return "Etablissement{" + "id=" + id + ", libelle=" + libelle + ", niveau=" + niveau + ", formation=" + formation + ", annee=" + annee + '}';
+        return "bean.EtablissementUser[ id=" + id + " ]";
     }
-
     
 }

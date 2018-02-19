@@ -19,8 +19,8 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Emploi implements Serializable {
-    @OneToMany(mappedBy = "emploi")
-    private List<User> users;
+    
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,17 +28,19 @@ public class Emploi implements Serializable {
     private String poste;
     private String entreprise;
     private String lieu;
-    private String periode;
+    @OneToMany(mappedBy = "emploi")
+    private List<EmploiItem> emploiItems;
+
+    public List<EmploiItem> getEmploiItems() {
+        return emploiItems;
+    }
+
+    public void setEmploiItems(List<EmploiItem> emploiItems) {
+        this.emploiItems = emploiItems;
+    }
+    
 
     public Emploi() {
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public String getPoste() {
@@ -65,13 +67,7 @@ public class Emploi implements Serializable {
         this.lieu = lieu;
     }
 
-    public String getPeriode() {
-        return periode;
-    }
-
-    public void setPeriode(String periode) {
-        this.periode = periode;
-    }
+   
 
     public Emploi(Long id) {
         this.id = id;
@@ -108,7 +104,7 @@ public class Emploi implements Serializable {
 
     @Override
     public String toString() {
-        return "Emploi{" + "id=" + id + ", poste=" + poste + ", entreprise=" + entreprise + ", lieu=" + lieu + ", periode=" + periode + '}';
+        return "Emploi{" + "id=" + id + ", poste=" + poste + ", entreprise=" + entreprise + ", lieu=" + lieu + '}';
     }
 
   

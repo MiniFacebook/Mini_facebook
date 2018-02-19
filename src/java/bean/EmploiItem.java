@@ -6,39 +6,55 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class Video implements Serializable {
+public class EmploiItem implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String chemin;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateDebut;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateFin;
+  
     @ManyToOne
     private User user;
-
-    public Video() {
+    @ManyToOne
+    private Emploi emploi;
+    
+    public EmploiItem() {
     }
-
-    public Video(Long id) {
+    public EmploiItem(Long id) {
         this.id = id;
     }
 
-    public String getChemin() {
-        return chemin;
+    public Date getDateDebut() {
+        return dateDebut;
     }
 
-    public void setChemin(String chemin) {
-        this.chemin = chemin;
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     public User getUser() {
@@ -48,7 +64,14 @@ public class Video implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
+    public Emploi getEmploi() {
+        return emploi;
+    }
+
+    public void setEmploi(Emploi emploi) {
+        this.emploi = emploi;
+    }
 
     public Long getId() {
         return id;
@@ -68,10 +91,10 @@ public class Video implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Video)) {
+        if (!(object instanceof EmploiItem)) {
             return false;
         }
-        Video other = (Video) object;
+        EmploiItem other = (EmploiItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,9 +103,7 @@ public class Video implements Serializable {
 
     @Override
     public String toString() {
-        return "video{" + "id=" + id + ", chemin=" + chemin + '}';
+        return "bean.EmploiItem[ id=" + id + " ]";
     }
 
-  
-    
 }

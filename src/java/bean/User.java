@@ -22,7 +22,22 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class User implements Serializable {
-    @OneToMany(mappedBy = "concerne")
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    private String login;
+    private String password;
+    private String nom;
+    private String prenom;
+    private String telephone;
+    private String sexe;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateNaissance;
+    private Double timer;
+
+    @ManyToOne
+    private Lieu lieu;
+        @OneToMany(mappedBy = "concerne")
     private List<NotificationItem> notificationItems;
     @OneToMany(mappedBy = "liker")
     private List<Aime> aimes;
@@ -44,24 +59,27 @@ public class User implements Serializable {
     private List<Invitation> invitations;
     @OneToMany(mappedBy = "bloque")
     private List<Blocage> blocages;
-    private static final long serialVersionUID = 1L;
-    @Id
+    @OneToMany(mappedBy = "user")
+    private List<EtablissementItem> etablissementItems;
+    @OneToMany(mappedBy = "user")
+    private List<EmploiItem> emploiItems;
+
+    public List<EmploiItem> getEmploiItems() {
+        return emploiItems;
+    }
+
+    public void setEmploiItems(List<EmploiItem> emploiItems) {
+        this.emploiItems = emploiItems;
+    }
     
-    private String login;
-    private String password;
-    private String nom;
-    private String prenom;
-    private String telephone;
-    private String sexe;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateNaissance;
-    private Double timer;
-    @ManyToOne
-    private Etablissement etablissement;
-    @ManyToOne
-    private Emploi emploi;
-    @ManyToOne
-    private Lieu lieu;
+    public List<EtablissementItem> getEtablissementItems() {
+        return etablissementItems;
+    }
+
+    public void setEtablissementItems(List<EtablissementItem> etablissementItems) {
+        this.etablissementItems = etablissementItems;
+    }
+   
 
     public User() {
     }
@@ -214,21 +232,7 @@ public class User implements Serializable {
         this.timer = timer;
     }
 
-    public Etablissement getEtablissement() {
-        return etablissement;
-    }
-
-    public void setEtablissement(Etablissement etablissement) {
-        this.etablissement = etablissement;
-    }
-
-    public Emploi getEmploi() {
-        return emploi;
-    }
-
-    public void setEmploi(Emploi emploi) {
-        this.emploi = emploi;
-    }
+  
 
     public Lieu getLieu() {
         return lieu;
