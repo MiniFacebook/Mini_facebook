@@ -32,7 +32,7 @@ public class NotificationController implements Serializable {
     }
 
     public Notification getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Notification();
         }
         return selected;

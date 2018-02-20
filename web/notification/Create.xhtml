@@ -3,63 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="NotificationCreateDlg" widgetVar="NotificationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNotificationTitle}">
-            <h:form id="NotificationCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{notificationController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_texte}" for="texte" />
-                        <p:inputText id="texte" value="#{notificationController.selected.texte}" title="#{bundle.CreateNotificationTitle_texte}" />
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_dateNotification}" for="dateNotification" />
-                        <p:calendar id="dateNotification" pattern="MM/dd/yyyy" value="#{notificationController.selected.dateNotification}" title="#{bundle.EditNotificationTitle_dateNotification}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_userAction}" for="userAction" />
-                        <p:selectOneMenu id="userAction" value="#{notificationController.selected.userAction}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="userActionItem"
-                                           itemValue="#{userActionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_publication}" for="publication" />
-                        <p:selectOneMenu id="publication" value="#{notificationController.selected.publication}" >
-                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
-                                           var="publicationItem"
-                                           itemValue="#{publicationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_message}" for="message" />
-                        <p:selectOneMenu id="message" value="#{notificationController.selected.message}" >
-                            <f:selectItems value="#{messageController.itemsAvailableSelectOne}"
-                                           var="messageItem"
-                                           itemValue="#{messageItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_aime}" for="aime" />
-                        <p:selectOneMenu id="aime" value="#{notificationController.selected.aime}" >
-                            <f:selectItems value="#{aimeController.itemsAvailableSelectOne}"
-                                           var="aimeItem"
-                                           itemValue="#{aimeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_invitation}" for="invitation" />
-                        <p:selectOneMenu id="invitation" value="#{notificationController.selected.invitation}" >
-                            <f:selectItems value="#{invitationController.itemsAvailableSelectOne}"
-                                           var="invitationItem"
-                                           itemValue="#{invitationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_commentaire}" for="commentaire" />
-                        <p:selectOneMenu id="commentaire" value="#{notificationController.selected.commentaire}" >
-                            <f:selectItems value="#{commentaireController.itemsAvailableSelectOne}"
-                                           var="commentaireItem"
-                                           itemValue="#{commentaireItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateNotificationLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{notificationController.selected.id}" title="#{bundle.CreateNotificationTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{notificationController.create}" value="#{bundle.Save}" update="display,:NotificationListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotificationCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="NotificationCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateNotificationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateNotificationLabel_texte}" for="texte" />
+                    <h:inputText id="texte" value="#{notificationController.selected.texte}" title="#{bundle.CreateNotificationTitle_texte}" />
+                    <h:outputLabel value="#{bundle.CreateNotificationLabel_dateNotification}" for="dateNotification" />
+                    <h:inputText id="dateNotification" value="#{notificationController.selected.dateNotification}" title="#{bundle.CreateNotificationTitle_dateNotification}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateNotificationLabel_userAction}" for="userAction" />
+                    <h:selectOneMenu id="userAction" value="#{notificationController.selected.userAction}" title="#{bundle.CreateNotificationTitle_userAction}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateNotificationLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{notificationController.selected.id}" title="#{bundle.CreateNotificationTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{notificationController.create}" value="#{bundle.CreateNotificationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{notificationController.prepareList}" value="#{bundle.CreateNotificationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateNotificationIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -25,20 +25,13 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String texte;
+    private String type;
+    private String idElement;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNotification;
     @OneToOne
     private User userAction;
-    @OneToOne
-    private Publication publication;
-    @OneToOne
-    private Message message;
-    @OneToOne
-    private Aime aime;
-    @OneToOne
-    private Invitation invitation;
-    @OneToOne
-    private Commentaire  commentaire;
+    
 
     public Notification() {
     }
@@ -71,46 +64,7 @@ public class Notification implements Serializable {
         this.userAction = userAction;
     }
 
-    public Publication getPublication() {
-        return publication;
-    }
 
-    public void setPublication(Publication publication) {
-        this.publication = publication;
-    }
-
-    public Message getMessage() {
-        return message;
-    }
-
-    public void setMessage(Message message) {
-        this.message = message;
-    }
-
-    public Aime getAime() {
-        return aime;
-    }
-
-    public void setAime(Aime aime) {
-        this.aime = aime;
-    }
-
-    public Invitation getInvitation() {
-        return invitation;
-    }
-
-    public void setInvitation(Invitation invitation) {
-        this.invitation = invitation;
-    }
-
-    public Commentaire getCommentaire() {
-        return commentaire;
-    }
-
-    public void setCommentaire(Commentaire commentaire) {
-        this.commentaire = commentaire;
-    }
-    
 
     public Long getId() {
         return id;

@@ -3,36 +3,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewInvitationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewInvitationLabel_idGroupe}"/>
+                    <h:outputText value="#{invitationController.selected.idGroupe}" title="#{bundle.ViewInvitationTitle_idGroupe}"/>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_type}"/>
+                    <h:outputText value="#{invitationController.selected.type}" title="#{bundle.ViewInvitationTitle_type}"/>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_dateEnvoi}"/>
+                    <h:outputText value="#{invitationController.selected.dateEnvoi}" title="#{bundle.ViewInvitationTitle_dateEnvoi}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_dateAcceptation}"/>
+                    <h:outputText value="#{invitationController.selected.dateAcceptation}" title="#{bundle.ViewInvitationTitle_dateAcceptation}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_recepteur}"/>
+                    <h:outputText value="#{invitationController.selected.recepteur}" title="#{bundle.ViewInvitationTitle_recepteur}"/>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_emetteur}"/>
+                    <h:outputText value="#{invitationController.selected.emetteur}" title="#{bundle.ViewInvitationTitle_emetteur}"/>
+                    <h:outputText value="#{bundle.ViewInvitationLabel_id}"/>
+                    <h:outputText value="#{invitationController.selected.id}" title="#{bundle.ViewInvitationTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{invitationController.destroyAndView}" value="#{bundle.ViewInvitationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewInvitationEditLink}"/>
+                <br />
+                <h:commandLink action="#{invitationController.prepareCreate}" value="#{bundle.ViewInvitationCreateLink}" />
+                <br />
+                <h:commandLink action="#{invitationController.prepareList}" value="#{bundle.ViewInvitationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewInvitationIndexLink}"/>
 
-        <p:dialog id="InvitationViewDlg" widgetVar="InvitationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInvitationTitle}">
-            <h:form id="InvitationViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{invitationController.selected != null}">
-                        <h:outputText value="#{bundle.ViewInvitationLabel_type}"/>
-                        <h:outputText value="#{invitationController.selected.type}" title="#{bundle.ViewInvitationTitle_type}"/>
-                        <h:outputText value="#{bundle.ViewInvitationLabel_dateEnvoi}"/>
-                        <h:outputText value="#{invitationController.selected.dateEnvoi}" title="#{bundle.ViewInvitationTitle_dateEnvoi}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewInvitationLabel_dateAcceptation}"/>
-                        <h:outputText value="#{invitationController.selected.dateAcceptation}" title="#{bundle.ViewInvitationTitle_dateAcceptation}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewInvitationLabel_recepteur}"/>
-                        <h:outputText value="#{invitationController.selected.recepteur}" title="#{bundle.ViewInvitationTitle_recepteur}"/>
-                        <h:outputText value="#{bundle.ViewInvitationLabel_emetteur}"/>
-                        <h:outputText value="#{invitationController.selected.emetteur}" title="#{bundle.ViewInvitationTitle_emetteur}"/>
-                        <h:outputText value="#{bundle.ViewInvitationLabel_id}"/>
-                        <h:outputText value="#{invitationController.selected.id}" title="#{bundle.ViewInvitationTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="InvitationViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

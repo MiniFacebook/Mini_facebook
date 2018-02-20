@@ -32,7 +32,7 @@ public class UserController implements Serializable {
     }
 
     public User getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new User();
         }
         return selected;

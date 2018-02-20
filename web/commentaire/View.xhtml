@@ -3,32 +3,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCommentaireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCommentaireLabel_id}"/>
+                    <h:outputText value="#{commentaireController.selected.id}" title="#{bundle.ViewCommentaireTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewCommentaireLabel_texte}"/>
+                    <h:outputText value="#{commentaireController.selected.texte}" title="#{bundle.ViewCommentaireTitle_texte}"/>
+                    <h:outputText value="#{bundle.ViewCommentaireLabel_dateCommentaire}"/>
+                    <h:outputText value="#{commentaireController.selected.dateCommentaire}" title="#{bundle.ViewCommentaireTitle_dateCommentaire}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCommentaireLabel_user}"/>
+                    <h:outputText value="#{commentaireController.selected.user}" title="#{bundle.ViewCommentaireTitle_user}"/>
+                    <h:outputText value="#{bundle.ViewCommentaireLabel_publication}"/>
+                    <h:outputText value="#{commentaireController.selected.publication}" title="#{bundle.ViewCommentaireTitle_publication}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{commentaireController.destroyAndView}" value="#{bundle.ViewCommentaireDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCommentaireEditLink}"/>
+                <br />
+                <h:commandLink action="#{commentaireController.prepareCreate}" value="#{bundle.ViewCommentaireCreateLink}" />
+                <br />
+                <h:commandLink action="#{commentaireController.prepareList}" value="#{bundle.ViewCommentaireShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCommentaireIndexLink}"/>
 
-        <p:dialog id="CommentaireViewDlg" widgetVar="CommentaireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCommentaireTitle}">
-            <h:form id="CommentaireViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{commentaireController.selected != null}">
-                        <h:outputText value="#{bundle.ViewCommentaireLabel_id}"/>
-                        <h:outputText value="#{commentaireController.selected.id}" title="#{bundle.ViewCommentaireTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewCommentaireLabel_texte}"/>
-                        <h:outputText value="#{commentaireController.selected.texte}" title="#{bundle.ViewCommentaireTitle_texte}"/>
-                        <h:outputText value="#{bundle.ViewCommentaireLabel_dateCommentaire}"/>
-                        <h:outputText value="#{commentaireController.selected.dateCommentaire}" title="#{bundle.ViewCommentaireTitle_dateCommentaire}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewCommentaireLabel_user}"/>
-                        <h:outputText value="#{commentaireController.selected.user}" title="#{bundle.ViewCommentaireTitle_user}"/>
-                        <h:outputText value="#{bundle.ViewCommentaireLabel_publication}"/>
-                        <h:outputText value="#{commentaireController.selected.publication}" title="#{bundle.ViewCommentaireTitle_publication}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="CommentaireViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

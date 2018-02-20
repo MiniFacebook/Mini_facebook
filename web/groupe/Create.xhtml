@@ -3,37 +3,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="GroupeCreateDlg" widgetVar="GroupeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGroupeTitle}">
-            <h:form id="GroupeCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{groupeController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{groupeController.selected.nom}" title="#{bundle.CreateGroupeTitle_nom}" />
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_etat}" for="etat" />
-                        <p:inputText id="etat" value="#{groupeController.selected.etat}" title="#{bundle.CreateGroupeTitle_etat}" />
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_type}" for="type" />
-                        <p:inputText id="type" value="#{groupeController.selected.type}" title="#{bundle.CreateGroupeTitle_type}" />
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_dateCreation}" for="dateCreation" />
-                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy" value="#{groupeController.selected.dateCreation}" title="#{bundle.EditGroupeTitle_dateCreation}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_admin}" for="admin" />
-                        <p:selectOneMenu id="admin" value="#{groupeController.selected.admin}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="adminItem"
-                                           itemValue="#{adminItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateGroupeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{groupeController.selected.id}" title="#{bundle.CreateGroupeTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{groupeController.create}" value="#{bundle.Save}" update="display,:GroupeListForm:datalist,:growl" oncomplete="handleSubmit(args,'GroupeCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="GroupeCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateGroupeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_nom}" for="nom" />
+                    <h:inputText id="nom" value="#{groupeController.selected.nom}" title="#{bundle.CreateGroupeTitle_nom}" />
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_etat}" for="etat" />
+                    <h:inputText id="etat" value="#{groupeController.selected.etat}" title="#{bundle.CreateGroupeTitle_etat}" />
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{groupeController.selected.type}" title="#{bundle.CreateGroupeTitle_type}" />
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_dateCreation}" for="dateCreation" />
+                    <h:inputText id="dateCreation" value="#{groupeController.selected.dateCreation}" title="#{bundle.CreateGroupeTitle_dateCreation}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_admin}" for="admin" />
+                    <h:selectOneMenu id="admin" value="#{groupeController.selected.admin}" title="#{bundle.CreateGroupeTitle_admin}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateGroupeLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{groupeController.selected.id}" title="#{bundle.CreateGroupeTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{groupeController.create}" value="#{bundle.CreateGroupeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{groupeController.prepareList}" value="#{bundle.CreateGroupeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateGroupeIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -32,7 +32,7 @@ public class MessageItemController implements Serializable {
     }
 
     public MessageItem getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new MessageItem();
         }
         return selected;

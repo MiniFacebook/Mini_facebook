@@ -32,7 +32,7 @@ public class CommentaireController implements Serializable {
     }
 
     public Commentaire getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Commentaire();
         }
         return selected;

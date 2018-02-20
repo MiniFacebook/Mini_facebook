@@ -3,30 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewGroupeItemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewGroupeItemLabel_dateIntegration}"/>
+                    <h:outputText value="#{groupeItemController.selected.dateIntegration}" title="#{bundle.ViewGroupeItemTitle_dateIntegration}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewGroupeItemLabel_demandeur}"/>
+                    <h:outputText value="#{groupeItemController.selected.demandeur}" title="#{bundle.ViewGroupeItemTitle_demandeur}"/>
+                    <h:outputText value="#{bundle.ViewGroupeItemLabel_groupe}"/>
+                    <h:outputText value="#{groupeItemController.selected.groupe}" title="#{bundle.ViewGroupeItemTitle_groupe}"/>
+                    <h:outputText value="#{bundle.ViewGroupeItemLabel_id}"/>
+                    <h:outputText value="#{groupeItemController.selected.id}" title="#{bundle.ViewGroupeItemTitle_id}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{groupeItemController.destroyAndView}" value="#{bundle.ViewGroupeItemDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewGroupeItemEditLink}"/>
+                <br />
+                <h:commandLink action="#{groupeItemController.prepareCreate}" value="#{bundle.ViewGroupeItemCreateLink}" />
+                <br />
+                <h:commandLink action="#{groupeItemController.prepareList}" value="#{bundle.ViewGroupeItemShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewGroupeItemIndexLink}"/>
 
-        <p:dialog id="GroupeItemViewDlg" widgetVar="GroupeItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGroupeItemTitle}">
-            <h:form id="GroupeItemViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{groupeItemController.selected != null}">
-                        <h:outputText value="#{bundle.ViewGroupeItemLabel_dateIntegration}"/>
-                        <h:outputText value="#{groupeItemController.selected.dateIntegration}" title="#{bundle.ViewGroupeItemTitle_dateIntegration}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewGroupeItemLabel_demandeur}"/>
-                        <h:outputText value="#{groupeItemController.selected.demandeur}" title="#{bundle.ViewGroupeItemTitle_demandeur}"/>
-                        <h:outputText value="#{bundle.ViewGroupeItemLabel_groupe}"/>
-                        <h:outputText value="#{groupeItemController.selected.groupe}" title="#{bundle.ViewGroupeItemTitle_groupe}"/>
-                        <h:outputText value="#{bundle.ViewGroupeItemLabel_id}"/>
-                        <h:outputText value="#{groupeItemController.selected.id}" title="#{bundle.ViewGroupeItemTitle_id}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="GroupeItemViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

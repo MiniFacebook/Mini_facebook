@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGroupeAdminTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListGroupeAdminEmpty}" rendered="#{groupeAdminController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{groupeAdminController.items.rowCount > 0}">
+                    <h:outputText value="#{groupeAdminController.pagination.pageFirstItem + 1}..#{groupeAdminController.pagination.pageLastItem + 1}/#{groupeAdminController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{groupeAdminController.previous}" value="#{bundle.Previous} #{groupeAdminController.pagination.pageSize}" rendered="#{groupeAdminController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{groupeAdminController.next}" value="#{bundle.Next} #{groupeAdminController.pagination.pageSize}" rendered="#{groupeAdminController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{groupeAdminController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupeAdminTitle_admin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.admin}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupeAdminTitle_groupe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.groupe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupeAdminTitle_dateAdmin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateAdmin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGroupeAdminTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{groupeAdminController.prepareView}" value="#{bundle.ListGroupeAdminViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{groupeAdminController.prepareEdit}" value="#{bundle.ListGroupeAdminEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{groupeAdminController.destroy}" value="#{bundle.ListGroupeAdminDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{groupeAdminController.prepareCreate}" value="#{bundle.ListGroupeAdminCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListGroupeAdminIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

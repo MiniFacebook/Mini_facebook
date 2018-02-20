@@ -32,7 +32,7 @@ public class GroupeItemController implements Serializable {
     }
 
     public GroupeItem getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new GroupeItem();
         }
         return selected;

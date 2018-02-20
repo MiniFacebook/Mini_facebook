@@ -3,31 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="videoCreateDlg" widgetVar="videoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatevideoTitle}">
-            <h:form id="videoCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{videoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatevideoLabel_chemin}" for="chemin" />
-                        <p:inputText id="chemin" value="#{videoController.selected.chemin}" title="#{bundle.CreatevideoTitle_chemin}" />
-                        <p:outputLabel value="#{bundle.CreatevideoLabel_user}" for="user" />
-                        <p:selectOneMenu id="user" value="#{videoController.selected.user}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="userItem"
-                                           itemValue="#{userItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatevideoLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{videoController.selected.id}" title="#{bundle.CreatevideoTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{videoController.create}" value="#{bundle.Save}" update="display,:videoListForm:datalist,:growl" oncomplete="handleSubmit(args,'videoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="videoCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateVideoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateVideoLabel_extension}" for="extension" />
+                    <h:inputText id="extension" value="#{videoController.selected.extension}" title="#{bundle.CreateVideoTitle_extension}" />
+                    <h:outputLabel value="#{bundle.CreateVideoLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{videoController.selected.user}" title="#{bundle.CreateVideoTitle_user}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateVideoLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{videoController.selected.id}" title="#{bundle.CreateVideoTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{videoController.create}" value="#{bundle.CreateVideoSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{videoController.prepareList}" value="#{bundle.CreateVideoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateVideoIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

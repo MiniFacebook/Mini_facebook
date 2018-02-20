@@ -32,7 +32,7 @@ public class BlocageController implements Serializable {
     }
 
     public Blocage getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Blocage();
         }
         return selected;

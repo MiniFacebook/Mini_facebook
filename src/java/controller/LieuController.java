@@ -36,7 +36,7 @@ public class LieuController implements Serializable {
     }
 
     public void setSelected(Lieu selected) {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Lieu();
         }
         this.selected = selected;

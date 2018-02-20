@@ -34,6 +34,15 @@ public class Invitation implements Serializable {
     private User recepteur;
     @OneToOne
     private User emetteur;
+    private String idGroupe;
+
+    public String getIdGroupe() {
+        return idGroupe;
+    }
+
+    public void setIdGroupe(String idGroupe) {
+        this.idGroupe = idGroupe;
+    }
 
     public Invitation() {
     }

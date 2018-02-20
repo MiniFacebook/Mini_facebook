@@ -3,45 +3,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PublicationCreateDlg" widgetVar="PublicationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePublicationTitle}">
-            <h:form id="PublicationCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{publicationController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_datePublication}" for="datePublication" />
-                        <p:calendar id="datePublication" pattern="MM/dd/yyyy" value="#{publicationController.selected.datePublication}" title="#{bundle.EditPublicationTitle_datePublication}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_texte}" for="texte" />
-                        <p:inputText id="texte" value="#{publicationController.selected.texte}" title="#{bundle.CreatePublicationTitle_texte}" />
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_recepteurPublicartion}" for="recepteurPublicartion" />
-                        <p:selectOneMenu id="recepteurPublicartion" value="#{publicationController.selected.recepteurPublicartion}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="recepteurPublicartionItem"
-                                           itemValue="#{recepteurPublicartionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_emetteurPublicartion}" for="emetteurPublicartion" />
-                        <p:selectOneMenu id="emetteurPublicartion" value="#{publicationController.selected.emetteurPublicartion}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="emetteurPublicartionItem"
-                                           itemValue="#{emetteurPublicartionItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_groupe}" for="groupe" />
-                        <p:selectOneMenu id="groupe" value="#{publicationController.selected.groupe}" >
-                            <f:selectItems value="#{groupeController.itemsAvailableSelectOne}"
-                                           var="groupeItem"
-                                           itemValue="#{groupeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreatePublicationLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{publicationController.selected.id}" title="#{bundle.CreatePublicationTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{publicationController.create}" value="#{bundle.Save}" update="display,:PublicationListForm:datalist,:growl" oncomplete="handleSubmit(args,'PublicationCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PublicationCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePublicationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_datePublication}" for="datePublication" />
+                    <h:inputText id="datePublication" value="#{publicationController.selected.datePublication}" title="#{bundle.CreatePublicationTitle_datePublication}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_texte}" for="texte" />
+                    <h:inputText id="texte" value="#{publicationController.selected.texte}" title="#{bundle.CreatePublicationTitle_texte}" />
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_recepteurPublicartion}" for="recepteurPublicartion" />
+                    <h:selectOneMenu id="recepteurPublicartion" value="#{publicationController.selected.recepteurPublicartion}" title="#{bundle.CreatePublicationTitle_recepteurPublicartion}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_emetteurPublicartion}" for="emetteurPublicartion" />
+                    <h:selectOneMenu id="emetteurPublicartion" value="#{publicationController.selected.emetteurPublicartion}" title="#{bundle.CreatePublicationTitle_emetteurPublicartion}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_groupe}" for="groupe" />
+                    <h:selectOneMenu id="groupe" value="#{publicationController.selected.groupe}" title="#{bundle.CreatePublicationTitle_groupe}" >
+                        <f:selectItems value="#{groupeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreatePublicationLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{publicationController.selected.id}" title="#{bundle.CreatePublicationTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{publicationController.create}" value="#{bundle.CreatePublicationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{publicationController.prepareList}" value="#{bundle.CreatePublicationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePublicationIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

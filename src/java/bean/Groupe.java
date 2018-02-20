@@ -37,6 +37,8 @@ public class Groupe implements Serializable {
     private Date dateCreation;
     @ManyToOne
     private User admin;
+    @OneToMany(mappedBy = "groupe")
+    private List<GroupeAdmin> groupeAdmins;
 
     public Groupe() {
     }

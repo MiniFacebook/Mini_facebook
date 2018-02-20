@@ -3,43 +3,47 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="AimeCreateDlg" widgetVar="AimeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAimeTitle}">
-            <h:form id="AimeCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{aimeController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAimeLabel_dateAime}" for="dateAime" />
-                        <p:calendar id="dateAime" pattern="MM/dd/yyyy" value="#{aimeController.selected.dateAime}" title="#{bundle.EditAimeTitle_dateAime}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateAimeLabel_liker}" for="liker" />
-                        <p:selectOneMenu id="liker" value="#{aimeController.selected.liker}" >
-                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
-                                           var="likerItem"
-                                           itemValue="#{likerItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateAimeLabel_publication}" for="publication" />
-                        <p:selectOneMenu id="publication" value="#{aimeController.selected.publication}" >
-                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
-                                           var="publicationItem"
-                                           itemValue="#{publicationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateAimeLabel_commentaire}" for="commentaire" />
-                        <p:selectOneMenu id="commentaire" value="#{aimeController.selected.commentaire}" >
-                            <f:selectItems value="#{commentaireController.itemsAvailableSelectOne}"
-                                           var="commentaireItem"
-                                           itemValue="#{commentaireItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateAimeLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{aimeController.selected.id}" title="#{bundle.CreateAimeTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{aimeController.create}" value="#{bundle.Save}" update="display,:AimeListForm:datalist,:growl" oncomplete="handleSubmit(args,'AimeCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AimeCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAimeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAimeLabel_dateAime}" for="dateAime" />
+                    <h:inputText id="dateAime" value="#{aimeController.selected.dateAime}" title="#{bundle.CreateAimeTitle_dateAime}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateAimeLabel_liker}" for="liker" />
+                    <h:selectOneMenu id="liker" value="#{aimeController.selected.liker}" title="#{bundle.CreateAimeTitle_liker}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateAimeLabel_publication}" for="publication" />
+                    <h:selectOneMenu id="publication" value="#{aimeController.selected.publication}" title="#{bundle.CreateAimeTitle_publication}" >
+                        <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateAimeLabel_commentaire}" for="commentaire" />
+                    <h:selectOneMenu id="commentaire" value="#{aimeController.selected.commentaire}" title="#{bundle.CreateAimeTitle_commentaire}" >
+                        <f:selectItems value="#{commentaireController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateAimeLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{aimeController.selected.id}" title="#{bundle.CreateAimeTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{aimeController.create}" value="#{bundle.CreateAimeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{aimeController.prepareList}" value="#{bundle.CreateAimeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAimeIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

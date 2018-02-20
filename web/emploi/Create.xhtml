@@ -3,31 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="EmploiCreateDlg" widgetVar="EmploiCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmploiTitle}">
-            <h:form id="EmploiCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{emploiController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateEmploiLabel_poste}" for="poste" />
-                        <p:inputText id="poste" value="#{emploiController.selected.poste}" title="#{bundle.CreateEmploiTitle_poste}" />
-                        <p:outputLabel value="#{bundle.CreateEmploiLabel_entreprise}" for="entreprise" />
-                        <p:inputText id="entreprise" value="#{emploiController.selected.entreprise}" title="#{bundle.CreateEmploiTitle_entreprise}" />
-                        <p:outputLabel value="#{bundle.CreateEmploiLabel_lieu}" for="lieu" />
-                        <p:inputText id="lieu" value="#{emploiController.selected.lieu}" title="#{bundle.CreateEmploiTitle_lieu}" />
-                        <p:outputLabel value="#{bundle.CreateEmploiLabel_periode}" for="periode" />
-                        <p:inputText id="periode" value="#{emploiController.selected.periode}" title="#{bundle.CreateEmploiTitle_periode}" />
-                        <p:outputLabel value="#{bundle.CreateEmploiLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{emploiController.selected.id}" title="#{bundle.CreateEmploiTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{emploiController.create}" value="#{bundle.Save}" update="display,:EmploiListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmploiCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="EmploiCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEmploiTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEmploiLabel_poste}" for="poste" />
+                    <h:inputText id="poste" value="#{emploiController.selected.poste}" title="#{bundle.CreateEmploiTitle_poste}" />
+                    <h:outputLabel value="#{bundle.CreateEmploiLabel_entreprise}" for="entreprise" />
+                    <h:inputText id="entreprise" value="#{emploiController.selected.entreprise}" title="#{bundle.CreateEmploiTitle_entreprise}" />
+                    <h:outputLabel value="#{bundle.CreateEmploiLabel_lieu}" for="lieu" />
+                    <h:inputText id="lieu" value="#{emploiController.selected.lieu}" title="#{bundle.CreateEmploiTitle_lieu}" />
+                    <h:outputLabel value="#{bundle.CreateEmploiLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{emploiController.selected.id}" title="#{bundle.CreateEmploiTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{emploiController.create}" value="#{bundle.CreateEmploiSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{emploiController.prepareList}" value="#{bundle.CreateEmploiShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEmploiIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

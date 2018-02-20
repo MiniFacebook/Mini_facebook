@@ -64,6 +64,8 @@ public class User implements Serializable {
     private List<EmploiItem> emploiItems;
     @OneToMany(mappedBy = "user")
     private List<Video> videos;
+    @OneToMany(mappedBy = "admin")
+    private List<GroupeAdmin> groupeAdmins;
    
     public List<EmploiItem> getEmploiItems() {
         return emploiItems;

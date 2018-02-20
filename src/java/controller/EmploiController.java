@@ -32,7 +32,7 @@ public class EmploiController implements Serializable {
     }
 
     public Emploi getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Emploi();
         }
         return selected;

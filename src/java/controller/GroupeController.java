@@ -33,7 +33,7 @@ public class GroupeController implements Serializable {
     }
 
     public Groupe getSelected() {
-         if (selected == null) {
+        if (selected == null) {
             selected = new Groupe();
         }
         return selected;

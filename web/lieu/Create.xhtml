@@ -3,31 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="LieuCreateDlg" widgetVar="LieuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLieuTitle}">
-            <h:form id="LieuCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{lieuController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateLieuLabel_adresse}" for="adresse" />
-                        <p:inputText id="adresse" value="#{lieuController.selected.adresse}" title="#{bundle.CreateLieuTitle_adresse}" />
-                        <p:outputLabel value="#{bundle.CreateLieuLabel_ville}" for="ville" />
-                        <p:inputText id="ville" value="#{lieuController.selected.ville}" title="#{bundle.CreateLieuTitle_ville}" />
-                        <p:outputLabel value="#{bundle.CreateLieuLabel_villeOrigine}" for="villeOrigine" />
-                        <p:inputText id="villeOrigine" value="#{lieuController.selected.villeOrigine}" title="#{bundle.CreateLieuTitle_villeOrigine}" />
-                        <p:outputLabel value="#{bundle.CreateLieuLabel_periode}" for="periode" />
-                        <p:inputText id="periode" value="#{lieuController.selected.periode}" title="#{bundle.CreateLieuTitle_periode}" />
-                        <p:outputLabel value="#{bundle.CreateLieuLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{lieuController.selected.id}" title="#{bundle.CreateLieuTitle_id}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{lieuController.create}" value="#{bundle.Save}" update="display,:LieuListForm:datalist,:growl" oncomplete="handleSubmit(args,'LieuCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="LieuCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLieuTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLieuLabel_adresse}" for="adresse" />
+                    <h:inputText id="adresse" value="#{lieuController.selected.adresse}" title="#{bundle.CreateLieuTitle_adresse}" />
+                    <h:outputLabel value="#{bundle.CreateLieuLabel_ville}" for="ville" />
+                    <h:inputText id="ville" value="#{lieuController.selected.ville}" title="#{bundle.CreateLieuTitle_ville}" />
+                    <h:outputLabel value="#{bundle.CreateLieuLabel_villeOrigine}" for="villeOrigine" />
+                    <h:inputText id="villeOrigine" value="#{lieuController.selected.villeOrigine}" title="#{bundle.CreateLieuTitle_villeOrigine}" />
+                    <h:outputLabel value="#{bundle.CreateLieuLabel_periode}" for="periode" />
+                    <h:inputText id="periode" value="#{lieuController.selected.periode}" title="#{bundle.CreateLieuTitle_periode}" />
+                    <h:outputLabel value="#{bundle.CreateLieuLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{lieuController.selected.id}" title="#{bundle.CreateLieuTitle_id}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lieuController.create}" value="#{bundle.CreateLieuSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{lieuController.prepareList}" value="#{bundle.CreateLieuShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLieuIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>
