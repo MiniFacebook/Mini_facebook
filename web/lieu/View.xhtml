@@ -3,44 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewLieuTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewLieuLabel_adresse}"/>
-                    <h:outputText value="#{lieuController.selected.adresse}" title="#{bundle.ViewLieuTitle_adresse}"/>
-                    <h:outputText value="#{bundle.ViewLieuLabel_ville}"/>
-                    <h:outputText value="#{lieuController.selected.ville}" title="#{bundle.ViewLieuTitle_ville}"/>
-                    <h:outputText value="#{bundle.ViewLieuLabel_villeOrigine}"/>
-                    <h:outputText value="#{lieuController.selected.villeOrigine}" title="#{bundle.ViewLieuTitle_villeOrigine}"/>
-                    <h:outputText value="#{bundle.ViewLieuLabel_periode}"/>
-                    <h:outputText value="#{lieuController.selected.periode}" title="#{bundle.ViewLieuTitle_periode}"/>
-                    <h:outputText value="#{bundle.ViewLieuLabel_id}"/>
-                    <h:outputText value="#{lieuController.selected.id}" title="#{bundle.ViewLieuTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{lieuController.destroyAndView}" value="#{bundle.ViewLieuDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewLieuEditLink}"/>
-                <br />
-                <h:commandLink action="#{lieuController.prepareCreate}" value="#{bundle.ViewLieuCreateLink}" />
-                <br />
-                <h:commandLink action="#{lieuController.prepareList}" value="#{bundle.ViewLieuShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewLieuIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="LieuViewDlg" widgetVar="LieuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLieuTitle}">
+            <h:form id="LieuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lieuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLieuLabel_adresse}"/>
+                        <h:outputText value="#{lieuController.selected.adresse}" title="#{bundle.ViewLieuTitle_adresse}"/>
+                        <h:outputText value="#{bundle.ViewLieuLabel_ville}"/>
+                        <h:outputText value="#{lieuController.selected.ville}" title="#{bundle.ViewLieuTitle_ville}"/>
+                        <h:outputText value="#{bundle.ViewLieuLabel_villeOrigine}"/>
+                        <h:outputText value="#{lieuController.selected.villeOrigine}" title="#{bundle.ViewLieuTitle_villeOrigine}"/>
+                        <h:outputText value="#{bundle.ViewLieuLabel_periode}"/>
+                        <h:outputText value="#{lieuController.selected.periode}" title="#{bundle.ViewLieuTitle_periode}"/>
+                        <h:outputText value="#{bundle.ViewLieuLabel_id}"/>
+                        <h:outputText value="#{lieuController.selected.id}" title="#{bundle.ViewLieuTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LieuViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

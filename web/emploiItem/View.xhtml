@@ -3,48 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEmploiItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEmploiItemLabel_dateDebut}"/>
-                    <h:outputText value="#{emploiItemController.selected.dateDebut}" title="#{bundle.ViewEmploiItemTitle_dateDebut}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewEmploiItemLabel_dateFin}"/>
-                    <h:outputText value="#{emploiItemController.selected.dateFin}" title="#{bundle.ViewEmploiItemTitle_dateFin}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewEmploiItemLabel_user}"/>
-                    <h:outputText value="#{emploiItemController.selected.user}" title="#{bundle.ViewEmploiItemTitle_user}"/>
-                    <h:outputText value="#{bundle.ViewEmploiItemLabel_emploi}"/>
-                    <h:outputText value="#{emploiItemController.selected.emploi}" title="#{bundle.ViewEmploiItemTitle_emploi}"/>
-                    <h:outputText value="#{bundle.ViewEmploiItemLabel_id}"/>
-                    <h:outputText value="#{emploiItemController.selected.id}" title="#{bundle.ViewEmploiItemTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{emploiItemController.destroyAndView}" value="#{bundle.ViewEmploiItemDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEmploiItemEditLink}"/>
-                <br />
-                <h:commandLink action="#{emploiItemController.prepareCreate}" value="#{bundle.ViewEmploiItemCreateLink}" />
-                <br />
-                <h:commandLink action="#{emploiItemController.prepareList}" value="#{bundle.ViewEmploiItemShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewEmploiItemIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="EmploiItemViewDlg" widgetVar="EmploiItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmploiItemTitle}">
+            <h:form id="EmploiItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{emploiItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEmploiItemLabel_dateDebut}"/>
+                        <h:outputText value="#{emploiItemController.selected.dateDebut}" title="#{bundle.ViewEmploiItemTitle_dateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEmploiItemLabel_dateFin}"/>
+                        <h:outputText value="#{emploiItemController.selected.dateFin}" title="#{bundle.ViewEmploiItemTitle_dateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEmploiItemLabel_user}"/>
+                        <h:outputText value="#{emploiItemController.selected.user}" title="#{bundle.ViewEmploiItemTitle_user}"/>
+                        <h:outputText value="#{bundle.ViewEmploiItemLabel_emploi}"/>
+                        <h:outputText value="#{emploiItemController.selected.emploi}" title="#{bundle.ViewEmploiItemTitle_emploi}"/>
+                        <h:outputText value="#{bundle.ViewEmploiItemLabel_id}"/>
+                        <h:outputText value="#{emploiItemController.selected.id}" title="#{bundle.ViewEmploiItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmploiItemViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

@@ -3,46 +3,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEtablissementTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEtablissementLabel_libelle}"/>
-                    <h:outputText value="#{etablissementController.selected.libelle}" title="#{bundle.ViewEtablissementTitle_libelle}"/>
-                    <h:outputText value="#{bundle.ViewEtablissementLabel_niveau}"/>
-                    <h:outputText value="#{etablissementController.selected.niveau}" title="#{bundle.ViewEtablissementTitle_niveau}"/>
-                    <h:outputText value="#{bundle.ViewEtablissementLabel_formation}"/>
-                    <h:outputText value="#{etablissementController.selected.formation}" title="#{bundle.ViewEtablissementTitle_formation}"/>
-                    <h:outputText value="#{bundle.ViewEtablissementLabel_annee}"/>
-                    <h:outputText value="#{etablissementController.selected.annee}" title="#{bundle.ViewEtablissementTitle_annee}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewEtablissementLabel_id}"/>
-                    <h:outputText value="#{etablissementController.selected.id}" title="#{bundle.ViewEtablissementTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{etablissementController.destroyAndView}" value="#{bundle.ViewEtablissementDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEtablissementEditLink}"/>
-                <br />
-                <h:commandLink action="#{etablissementController.prepareCreate}" value="#{bundle.ViewEtablissementCreateLink}" />
-                <br />
-                <h:commandLink action="#{etablissementController.prepareList}" value="#{bundle.ViewEtablissementShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewEtablissementIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="EtablissementViewDlg" widgetVar="EtablissementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEtablissementTitle}">
+            <h:form id="EtablissementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etablissementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEtablissementLabel_libelle}"/>
+                        <h:outputText value="#{etablissementController.selected.libelle}" title="#{bundle.ViewEtablissementTitle_libelle}"/>
+                        <h:outputText value="#{bundle.ViewEtablissementLabel_niveau}"/>
+                        <h:outputText value="#{etablissementController.selected.niveau}" title="#{bundle.ViewEtablissementTitle_niveau}"/>
+                        <h:outputText value="#{bundle.ViewEtablissementLabel_formation}"/>
+                        <h:outputText value="#{etablissementController.selected.formation}" title="#{bundle.ViewEtablissementTitle_formation}"/>
+                        <h:outputText value="#{bundle.ViewEtablissementLabel_annee}"/>
+                        <h:outputText value="#{etablissementController.selected.annee}" title="#{bundle.ViewEtablissementTitle_annee}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEtablissementLabel_id}"/>
+                        <h:outputText value="#{etablissementController.selected.id}" title="#{bundle.ViewEtablissementTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EtablissementViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

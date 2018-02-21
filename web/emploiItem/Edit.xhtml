@@ -3,48 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditEmploiItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditEmploiItemLabel_dateDebut}" for="dateDebut" />
-                    <h:inputText id="dateDebut" value="#{emploiItemController.selected.dateDebut}" title="#{bundle.EditEmploiItemTitle_dateDebut}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditEmploiItemLabel_dateFin}" for="dateFin" />
-                    <h:inputText id="dateFin" value="#{emploiItemController.selected.dateFin}" title="#{bundle.EditEmploiItemTitle_dateFin}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditEmploiItemLabel_user}" for="user" />
-                    <h:selectOneMenu id="user" value="#{emploiItemController.selected.user}" title="#{bundle.EditEmploiItemTitle_user}" >
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditEmploiItemLabel_emploi}" for="emploi" />
-                    <h:selectOneMenu id="emploi" value="#{emploiItemController.selected.emploi}" title="#{bundle.EditEmploiItemTitle_emploi}" >
-                        <f:selectItems value="#{emploiController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditEmploiItemLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{emploiItemController.selected.id}" title="#{bundle.EditEmploiItemTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{emploiItemController.update}" value="#{bundle.EditEmploiItemSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditEmploiItemViewLink}"/>
-                <br />
-                <h:commandLink action="#{emploiItemController.prepareList}" value="#{bundle.EditEmploiItemShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditEmploiItemIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="EmploiItemEditDlg" widgetVar="EmploiItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEmploiItemTitle}">
+            <h:form id="EmploiItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{emploiItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEmploiItemLabel_dateDebut}" for="dateDebut" />
+                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy" value="#{emploiItemController.selected.dateDebut}" title="#{bundle.EditEmploiItemTitle_dateDebut}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEmploiItemLabel_dateFin}" for="dateFin" />
+                        <p:calendar id="dateFin" pattern="MM/dd/yyyy" value="#{emploiItemController.selected.dateFin}" title="#{bundle.EditEmploiItemTitle_dateFin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEmploiItemLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{emploiItemController.selected.user}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmploiItemLabel_emploi}" for="emploi" />
+                        <p:selectOneMenu id="emploi" value="#{emploiItemController.selected.emploi}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{emploiController.itemsAvailableSelectOne}"
+                                           var="emploiItem"
+                                           itemValue="#{emploiItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmploiItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{emploiItemController.selected.id}" title="#{bundle.EditEmploiItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{emploiItemController.update}" value="#{bundle.Save}" update="display,:EmploiItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EmploiItemEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmploiItemEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

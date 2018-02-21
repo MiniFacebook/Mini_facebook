@@ -3,48 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewPublicationTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewPublicationLabel_datePublication}"/>
-                    <h:outputText value="#{publicationController.selected.datePublication}" title="#{bundle.ViewPublicationTitle_datePublication}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewPublicationLabel_texte}"/>
-                    <h:outputText value="#{publicationController.selected.texte}" title="#{bundle.ViewPublicationTitle_texte}"/>
-                    <h:outputText value="#{bundle.ViewPublicationLabel_recepteurPublicartion}"/>
-                    <h:outputText value="#{publicationController.selected.recepteurPublicartion}" title="#{bundle.ViewPublicationTitle_recepteurPublicartion}"/>
-                    <h:outputText value="#{bundle.ViewPublicationLabel_emetteurPublicartion}"/>
-                    <h:outputText value="#{publicationController.selected.emetteurPublicartion}" title="#{bundle.ViewPublicationTitle_emetteurPublicartion}"/>
-                    <h:outputText value="#{bundle.ViewPublicationLabel_groupe}"/>
-                    <h:outputText value="#{publicationController.selected.groupe}" title="#{bundle.ViewPublicationTitle_groupe}"/>
-                    <h:outputText value="#{bundle.ViewPublicationLabel_id}"/>
-                    <h:outputText value="#{publicationController.selected.id}" title="#{bundle.ViewPublicationTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{publicationController.destroyAndView}" value="#{bundle.ViewPublicationDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewPublicationEditLink}"/>
-                <br />
-                <h:commandLink action="#{publicationController.prepareCreate}" value="#{bundle.ViewPublicationCreateLink}" />
-                <br />
-                <h:commandLink action="#{publicationController.prepareList}" value="#{bundle.ViewPublicationShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewPublicationIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="PublicationViewDlg" widgetVar="PublicationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPublicationTitle}">
+            <h:form id="PublicationViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{publicationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPublicationLabel_datePublication}"/>
+                        <h:outputText value="#{publicationController.selected.datePublication}" title="#{bundle.ViewPublicationTitle_datePublication}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_texte}"/>
+                        <h:outputText value="#{publicationController.selected.texte}" title="#{bundle.ViewPublicationTitle_texte}"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_recepteurPublicartion}"/>
+                        <h:outputText value="#{publicationController.selected.recepteurPublicartion}" title="#{bundle.ViewPublicationTitle_recepteurPublicartion}"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_emetteurPublicartion}"/>
+                        <h:outputText value="#{publicationController.selected.emetteurPublicartion}" title="#{bundle.ViewPublicationTitle_emetteurPublicartion}"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_groupe}"/>
+                        <h:outputText value="#{publicationController.selected.groupe}" title="#{bundle.ViewPublicationTitle_groupe}"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_id}"/>
+                        <h:outputText value="#{publicationController.selected.id}" title="#{bundle.ViewPublicationTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PublicationViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

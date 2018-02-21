@@ -3,75 +3,77 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListEtablissementItemTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListEtablissementItemEmpty}" rendered="#{etablissementItemController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{etablissementItemController.items.rowCount > 0}">
-                    <h:outputText value="#{etablissementItemController.pagination.pageFirstItem + 1}..#{etablissementItemController.pagination.pageLastItem + 1}/#{etablissementItemController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{etablissementItemController.previous}" value="#{bundle.Previous} #{etablissementItemController.pagination.pageSize}" rendered="#{etablissementItemController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{etablissementItemController.next}" value="#{bundle.Next} #{etablissementItemController.pagination.pageSize}" rendered="#{etablissementItemController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{etablissementItemController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="EtablissementItemListForm">
+                <p:panel header="#{bundle.ListEtablissementItemTitle}">
+                    <p:dataTable id="datalist" value="#{etablissementItemController.items}" var="item"
+                                 selectionMode="single" selection="#{etablissementItemController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEtablissementItemTitle_dateDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEtablissementItemTitle_dateFin}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateFin}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEtablissementItemTitle_user}"/>
                             </f:facet>
                             <h:outputText value="#{item.user}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEtablissementItemTitle_etablissement}"/>
                             </f:facet>
                             <h:outputText value="#{item.etablissement}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEtablissementItemTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{etablissementItemController.prepareView}" value="#{bundle.ListEtablissementItemViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{etablissementItemController.prepareEdit}" value="#{bundle.ListEtablissementItemEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{etablissementItemController.destroy}" value="#{bundle.ListEtablissementItemDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{etablissementItemController.prepareCreate}" value="#{bundle.ListEtablissementItemCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListEtablissementItemIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{etablissementItemController.prepareCreate}" update=":EtablissementItemCreateForm" oncomplete="PF('EtablissementItemCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EtablissementItemViewForm" oncomplete="PF('EtablissementItemViewDialog').show()" disabled="#{empty etablissementItemController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EtablissementItemEditForm" oncomplete="PF('EtablissementItemEditDialog').show()" disabled="#{empty etablissementItemController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{etablissementItemController.destroy}" update=":growl,datalist" disabled="#{empty etablissementItemController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

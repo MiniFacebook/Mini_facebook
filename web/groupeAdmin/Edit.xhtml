@@ -3,44 +3,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditGroupeAdminTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditGroupeAdminLabel_admin}" for="admin" />
-                    <h:selectOneMenu id="admin" value="#{groupeAdminController.selected.admin}" title="#{bundle.EditGroupeAdminTitle_admin}" >
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditGroupeAdminLabel_groupe}" for="groupe" />
-                    <h:selectOneMenu id="groupe" value="#{groupeAdminController.selected.groupe}" title="#{bundle.EditGroupeAdminTitle_groupe}" >
-                        <f:selectItems value="#{groupeController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditGroupeAdminLabel_dateAdmin}" for="dateAdmin" />
-                    <h:inputText id="dateAdmin" value="#{groupeAdminController.selected.dateAdmin}" title="#{bundle.EditGroupeAdminTitle_dateAdmin}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditGroupeAdminLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{groupeAdminController.selected.id}" title="#{bundle.EditGroupeAdminTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{groupeAdminController.update}" value="#{bundle.EditGroupeAdminSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditGroupeAdminViewLink}"/>
-                <br />
-                <h:commandLink action="#{groupeAdminController.prepareList}" value="#{bundle.EditGroupeAdminShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditGroupeAdminIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="GroupeAdminEditDlg" widgetVar="GroupeAdminEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGroupeAdminTitle}">
+            <h:form id="GroupeAdminEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{groupeAdminController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGroupeAdminLabel_admin}" for="admin" />
+                        <p:selectOneMenu id="admin" value="#{groupeAdminController.selected.admin}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="adminItem"
+                                           itemValue="#{adminItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGroupeAdminLabel_groupe}" for="groupe" />
+                        <p:selectOneMenu id="groupe" value="#{groupeAdminController.selected.groupe}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{groupeController.itemsAvailableSelectOne}"
+                                           var="groupeItem"
+                                           itemValue="#{groupeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditGroupeAdminLabel_dateAdmin}" for="dateAdmin" />
+                        <p:calendar id="dateAdmin" pattern="MM/dd/yyyy" value="#{groupeAdminController.selected.dateAdmin}" title="#{bundle.EditGroupeAdminTitle_dateAdmin}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGroupeAdminLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{groupeAdminController.selected.id}" title="#{bundle.EditGroupeAdminTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{groupeAdminController.update}" value="#{bundle.Save}" update="display,:GroupeAdminListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GroupeAdminEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GroupeAdminEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

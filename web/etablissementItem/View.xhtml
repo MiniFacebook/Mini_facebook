@@ -3,48 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewEtablissementItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEtablissementItemLabel_dateDebut}"/>
-                    <h:outputText value="#{etablissementItemController.selected.dateDebut}" title="#{bundle.ViewEtablissementItemTitle_dateDebut}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewEtablissementItemLabel_dateFin}"/>
-                    <h:outputText value="#{etablissementItemController.selected.dateFin}" title="#{bundle.ViewEtablissementItemTitle_dateFin}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewEtablissementItemLabel_user}"/>
-                    <h:outputText value="#{etablissementItemController.selected.user}" title="#{bundle.ViewEtablissementItemTitle_user}"/>
-                    <h:outputText value="#{bundle.ViewEtablissementItemLabel_etablissement}"/>
-                    <h:outputText value="#{etablissementItemController.selected.etablissement}" title="#{bundle.ViewEtablissementItemTitle_etablissement}"/>
-                    <h:outputText value="#{bundle.ViewEtablissementItemLabel_id}"/>
-                    <h:outputText value="#{etablissementItemController.selected.id}" title="#{bundle.ViewEtablissementItemTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{etablissementItemController.destroyAndView}" value="#{bundle.ViewEtablissementItemDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEtablissementItemEditLink}"/>
-                <br />
-                <h:commandLink action="#{etablissementItemController.prepareCreate}" value="#{bundle.ViewEtablissementItemCreateLink}" />
-                <br />
-                <h:commandLink action="#{etablissementItemController.prepareList}" value="#{bundle.ViewEtablissementItemShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewEtablissementItemIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="EtablissementItemViewDlg" widgetVar="EtablissementItemViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEtablissementItemTitle}">
+            <h:form id="EtablissementItemViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etablissementItemController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEtablissementItemLabel_dateDebut}"/>
+                        <h:outputText value="#{etablissementItemController.selected.dateDebut}" title="#{bundle.ViewEtablissementItemTitle_dateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEtablissementItemLabel_dateFin}"/>
+                        <h:outputText value="#{etablissementItemController.selected.dateFin}" title="#{bundle.ViewEtablissementItemTitle_dateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEtablissementItemLabel_user}"/>
+                        <h:outputText value="#{etablissementItemController.selected.user}" title="#{bundle.ViewEtablissementItemTitle_user}"/>
+                        <h:outputText value="#{bundle.ViewEtablissementItemLabel_etablissement}"/>
+                        <h:outputText value="#{etablissementItemController.selected.etablissement}" title="#{bundle.ViewEtablissementItemTitle_etablissement}"/>
+                        <h:outputText value="#{bundle.ViewEtablissementItemLabel_id}"/>
+                        <h:outputText value="#{etablissementItemController.selected.id}" title="#{bundle.ViewEtablissementItemTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EtablissementItemViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

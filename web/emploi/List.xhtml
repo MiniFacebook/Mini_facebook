@@ -3,65 +3,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListEmploiTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListEmploiEmpty}" rendered="#{emploiController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{emploiController.items.rowCount > 0}">
-                    <h:outputText value="#{emploiController.pagination.pageFirstItem + 1}..#{emploiController.pagination.pageLastItem + 1}/#{emploiController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{emploiController.previous}" value="#{bundle.Previous} #{emploiController.pagination.pageSize}" rendered="#{emploiController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{emploiController.next}" value="#{bundle.Next} #{emploiController.pagination.pageSize}" rendered="#{emploiController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{emploiController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="EmploiListForm">
+                <p:panel header="#{bundle.ListEmploiTitle}">
+                    <p:dataTable id="datalist" value="#{emploiController.items}" var="item"
+                                 selectionMode="single" selection="#{emploiController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmploiTitle_poste}"/>
                             </f:facet>
                             <h:outputText value="#{item.poste}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmploiTitle_entreprise}"/>
                             </f:facet>
                             <h:outputText value="#{item.entreprise}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmploiTitle_lieu}"/>
                             </f:facet>
                             <h:outputText value="#{item.lieu}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmploiTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{emploiController.prepareView}" value="#{bundle.ListEmploiViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{emploiController.prepareEdit}" value="#{bundle.ListEmploiEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{emploiController.destroy}" value="#{bundle.ListEmploiDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{emploiController.prepareCreate}" value="#{bundle.ListEmploiCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListEmploiIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{emploiController.prepareCreate}" update=":EmploiCreateForm" oncomplete="PF('EmploiCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmploiViewForm" oncomplete="PF('EmploiViewDialog').show()" disabled="#{empty emploiController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmploiEditForm" oncomplete="PF('EmploiEditDialog').show()" disabled="#{empty emploiController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{emploiController.destroy}" update=":growl,datalist" disabled="#{empty emploiController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

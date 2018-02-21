@@ -3,50 +3,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditContenuTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditContenuLabel_texte}" for="texte" />
-                    <h:inputText id="texte" value="#{contenuController.selected.texte}" title="#{bundle.EditContenuTitle_texte}" />
-                    <h:outputLabel value="#{bundle.EditContenuLabel_extension}" for="extension" />
-                    <h:inputText id="extension" value="#{contenuController.selected.extension}" title="#{bundle.EditContenuTitle_extension}" />
-                    <h:outputLabel value="#{bundle.EditContenuLabel_chemin}" for="chemin" />
-                    <h:inputText id="chemin" value="#{contenuController.selected.chemin}" title="#{bundle.EditContenuTitle_chemin}" />
-                    <h:outputLabel value="#{bundle.EditContenuLabel_message}" for="message" />
-                    <h:selectOneMenu id="message" value="#{contenuController.selected.message}" title="#{bundle.EditContenuTitle_message}" >
-                        <f:selectItems value="#{messageController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditContenuLabel_publication}" for="publication" />
-                    <h:selectOneMenu id="publication" value="#{contenuController.selected.publication}" title="#{bundle.EditContenuTitle_publication}" >
-                        <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditContenuLabel_commentaire}" for="commentaire" />
-                    <h:selectOneMenu id="commentaire" value="#{contenuController.selected.commentaire}" title="#{bundle.EditContenuTitle_commentaire}" >
-                        <f:selectItems value="#{commentaireController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditContenuLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{contenuController.selected.id}" title="#{bundle.EditContenuTitle_id}" />
-                </h:panelGrid>
-                <h:commandLink action="#{contenuController.update}" value="#{bundle.EditContenuSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditContenuViewLink}"/>
-                <br />
-                <h:commandLink action="#{contenuController.prepareList}" value="#{bundle.EditContenuShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditContenuIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="ContenuEditDlg" widgetVar="ContenuEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditContenuTitle}">
+            <h:form id="ContenuEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contenuController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditContenuLabel_texte}" for="texte" />
+                        <p:inputText id="texte" value="#{contenuController.selected.texte}" title="#{bundle.EditContenuTitle_texte}" />
+                        <p:outputLabel value="#{bundle.EditContenuLabel_extension}" for="extension" />
+                        <p:inputText id="extension" value="#{contenuController.selected.extension}" title="#{bundle.EditContenuTitle_extension}" />
+                        <p:outputLabel value="#{bundle.EditContenuLabel_chemin}" for="chemin" />
+                        <p:inputText id="chemin" value="#{contenuController.selected.chemin}" title="#{bundle.EditContenuTitle_chemin}" />
+                        <p:outputLabel value="#{bundle.EditContenuLabel_message}" for="message" />
+                        <p:selectOneMenu id="message" value="#{contenuController.selected.message}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{messageController.itemsAvailableSelectOne}"
+                                           var="messageItem"
+                                           itemValue="#{messageItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContenuLabel_publication}" for="publication" />
+                        <p:selectOneMenu id="publication" value="#{contenuController.selected.publication}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
+                                           var="publicationItem"
+                                           itemValue="#{publicationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContenuLabel_commentaire}" for="commentaire" />
+                        <p:selectOneMenu id="commentaire" value="#{contenuController.selected.commentaire}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{commentaireController.itemsAvailableSelectOne}"
+                                           var="commentaireItem"
+                                           itemValue="#{commentaireItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditContenuLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{contenuController.selected.id}" title="#{bundle.EditContenuTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{contenuController.update}" value="#{bundle.Save}" update="display,:ContenuListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ContenuEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ContenuEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

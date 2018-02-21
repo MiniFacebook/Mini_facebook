@@ -3,48 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewContenuTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewContenuLabel_texte}"/>
-                    <h:outputText value="#{contenuController.selected.texte}" title="#{bundle.ViewContenuTitle_texte}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_extension}"/>
-                    <h:outputText value="#{contenuController.selected.extension}" title="#{bundle.ViewContenuTitle_extension}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_chemin}"/>
-                    <h:outputText value="#{contenuController.selected.chemin}" title="#{bundle.ViewContenuTitle_chemin}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_message}"/>
-                    <h:outputText value="#{contenuController.selected.message}" title="#{bundle.ViewContenuTitle_message}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_publication}"/>
-                    <h:outputText value="#{contenuController.selected.publication}" title="#{bundle.ViewContenuTitle_publication}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_commentaire}"/>
-                    <h:outputText value="#{contenuController.selected.commentaire}" title="#{bundle.ViewContenuTitle_commentaire}"/>
-                    <h:outputText value="#{bundle.ViewContenuLabel_id}"/>
-                    <h:outputText value="#{contenuController.selected.id}" title="#{bundle.ViewContenuTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{contenuController.destroyAndView}" value="#{bundle.ViewContenuDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewContenuEditLink}"/>
-                <br />
-                <h:commandLink action="#{contenuController.prepareCreate}" value="#{bundle.ViewContenuCreateLink}" />
-                <br />
-                <h:commandLink action="#{contenuController.prepareList}" value="#{bundle.ViewContenuShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewContenuIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="ContenuViewDlg" widgetVar="ContenuViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewContenuTitle}">
+            <h:form id="ContenuViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{contenuController.selected != null}">
+                        <h:outputText value="#{bundle.ViewContenuLabel_texte}"/>
+                        <h:outputText value="#{contenuController.selected.texte}" title="#{bundle.ViewContenuTitle_texte}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_extension}"/>
+                        <h:outputText value="#{contenuController.selected.extension}" title="#{bundle.ViewContenuTitle_extension}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_chemin}"/>
+                        <h:outputText value="#{contenuController.selected.chemin}" title="#{bundle.ViewContenuTitle_chemin}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_message}"/>
+                        <h:outputText value="#{contenuController.selected.message}" title="#{bundle.ViewContenuTitle_message}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_publication}"/>
+                        <h:outputText value="#{contenuController.selected.publication}" title="#{bundle.ViewContenuTitle_publication}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_commentaire}"/>
+                        <h:outputText value="#{contenuController.selected.commentaire}" title="#{bundle.ViewContenuTitle_commentaire}"/>
+                        <h:outputText value="#{bundle.ViewContenuLabel_id}"/>
+                        <h:outputText value="#{contenuController.selected.id}" title="#{bundle.ViewContenuTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ContenuViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

@@ -3,41 +3,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateMessageTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateMessageLabel_dateEnvoi}" for="dateEnvoi" />
-                    <h:inputText id="dateEnvoi" value="#{messageController.selected.dateEnvoi}" title="#{bundle.CreateMessageTitle_dateEnvoi}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateMessageLabel_emetteur}" for="emetteur" />
-                    <h:selectOneMenu id="emetteur" value="#{messageController.selected.emetteur}" title="#{bundle.CreateMessageTitle_emetteur}" >
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateMessageLabel_texte}" for="texte" />
-                    <h:inputText id="texte" value="#{messageController.selected.texte}" title="#{bundle.CreateMessageTitle_texte}" />
-                    <h:outputLabel value="#{bundle.CreateMessageLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.CreateMessageTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{messageController.create}" value="#{bundle.CreateMessageSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{messageController.prepareList}" value="#{bundle.CreateMessageShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateMessageIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="MessageCreateDlg" widgetVar="MessageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMessageTitle}">
+            <h:form id="MessageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_dateEnvoi}" for="dateEnvoi" />
+                        <p:calendar id="dateEnvoi" pattern="MM/dd/yyyy" value="#{messageController.selected.dateEnvoi}" title="#{bundle.EditMessageTitle_dateEnvoi}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_emetteur}" for="emetteur" />
+                        <p:selectOneMenu id="emetteur" value="#{messageController.selected.emetteur}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="emetteurItem"
+                                           itemValue="#{emetteurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_texte}" for="texte" />
+                        <p:inputText id="texte" value="#{messageController.selected.texte}" title="#{bundle.CreateMessageTitle_texte}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.CreateMessageTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{messageController.create}" value="#{bundle.Save}" update="display,:MessageListForm:datalist,:growl" oncomplete="handleSubmit(args,'MessageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MessageCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

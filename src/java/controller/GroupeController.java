@@ -6,7 +6,6 @@ import controller.util.JsfUtil.PersistAction;
 import service.GroupeFacade;
 
 import java.io.Serializable;
-import java.security.acl.Group;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,7 +32,7 @@ public class GroupeController implements Serializable {
     }
 
     public Groupe getSelected() {
-        if (selected == null) {
+         if (selected == null) {
             selected = new Groupe();
         }
         return selected;

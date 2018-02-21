@@ -3,41 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateEtablissementTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateEtablissementLabel_libelle}" for="libelle" />
-                    <h:inputText id="libelle" value="#{etablissementController.selected.libelle}" title="#{bundle.CreateEtablissementTitle_libelle}" />
-                    <h:outputLabel value="#{bundle.CreateEtablissementLabel_niveau}" for="niveau" />
-                    <h:inputText id="niveau" value="#{etablissementController.selected.niveau}" title="#{bundle.CreateEtablissementTitle_niveau}" />
-                    <h:outputLabel value="#{bundle.CreateEtablissementLabel_formation}" for="formation" />
-                    <h:inputText id="formation" value="#{etablissementController.selected.formation}" title="#{bundle.CreateEtablissementTitle_formation}" />
-                    <h:outputLabel value="#{bundle.CreateEtablissementLabel_annee}" for="annee" />
-                    <h:inputText id="annee" value="#{etablissementController.selected.annee}" title="#{bundle.CreateEtablissementTitle_annee}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateEtablissementLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{etablissementController.selected.id}" title="#{bundle.CreateEtablissementTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{etablissementController.create}" value="#{bundle.CreateEtablissementSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{etablissementController.prepareList}" value="#{bundle.CreateEtablissementShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateEtablissementIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="EtablissementCreateDlg" widgetVar="EtablissementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEtablissementTitle}">
+            <h:form id="EtablissementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etablissementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEtablissementLabel_libelle}" for="libelle" />
+                        <p:inputText id="libelle" value="#{etablissementController.selected.libelle}" title="#{bundle.CreateEtablissementTitle_libelle}" />
+                        <p:outputLabel value="#{bundle.CreateEtablissementLabel_niveau}" for="niveau" />
+                        <p:inputText id="niveau" value="#{etablissementController.selected.niveau}" title="#{bundle.CreateEtablissementTitle_niveau}" />
+                        <p:outputLabel value="#{bundle.CreateEtablissementLabel_formation}" for="formation" />
+                        <p:inputText id="formation" value="#{etablissementController.selected.formation}" title="#{bundle.CreateEtablissementTitle_formation}" />
+                        <p:outputLabel value="#{bundle.CreateEtablissementLabel_annee}" for="annee" />
+                        <p:calendar id="annee" pattern="MM/dd/yyyy" value="#{etablissementController.selected.annee}" title="#{bundle.EditEtablissementTitle_annee}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateEtablissementLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{etablissementController.selected.id}" title="#{bundle.CreateEtablissementTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{etablissementController.create}" value="#{bundle.Save}" update="display,:EtablissementListForm:datalist,:growl" oncomplete="handleSubmit(args,'EtablissementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EtablissementCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

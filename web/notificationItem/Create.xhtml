@@ -3,39 +3,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.CreateNotificationItemTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateNotificationItemLabel_concerne}" for="concerne" />
-                    <h:selectOneMenu id="concerne" value="#{notificationItemController.selected.concerne}" title="#{bundle.CreateNotificationItemTitle_concerne}" >
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateNotificationItemLabel_notification}" for="notification" />
-                    <h:inputText id="notification" value="#{notificationItemController.selected.notification}" title="#{bundle.CreateNotificationItemTitle_notification}" />
-                    <h:outputLabel value="#{bundle.CreateNotificationItemLabel_vu}" for="vu" />
-                    <h:inputText id="vu" value="#{notificationItemController.selected.vu}" title="#{bundle.CreateNotificationItemTitle_vu}" />
-                    <h:outputLabel value="#{bundle.CreateNotificationItemLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{notificationItemController.selected.id}" title="#{bundle.CreateNotificationItemTitle_id}" />
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{notificationItemController.create}" value="#{bundle.CreateNotificationItemSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{notificationItemController.prepareList}" value="#{bundle.CreateNotificationItemShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateNotificationItemIndexLink}"/>
+    <ui:composition>
+
+        <p:dialog id="NotificationItemCreateDlg" widgetVar="NotificationItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateNotificationItemTitle}">
+            <h:form id="NotificationItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{notificationItemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateNotificationItemLabel_concerne}" for="concerne" />
+                        <p:selectOneMenu id="concerne" value="#{notificationItemController.selected.concerne}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="concerneItem"
+                                           itemValue="#{concerneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateNotificationItemLabel_notification}" for="notification" />
+                        <p:inputText id="notification" value="#{notificationItemController.selected.notification}" title="#{bundle.CreateNotificationItemTitle_notification}" />
+                        <p:outputLabel value="#{bundle.CreateNotificationItemLabel_vu}" for="vu" />
+                        <p:selectBooleanCheckbox id="vu" value="#{notificationItemController.selected.vu}" />
+                        <p:outputLabel value="#{bundle.CreateNotificationItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{notificationItemController.selected.id}" title="#{bundle.CreateNotificationItemTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{notificationItemController.create}" value="#{bundle.Save}" update="display,:NotificationItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'NotificationItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="NotificationItemCreateDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

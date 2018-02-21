@@ -3,73 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
+
+
         <ui:define name="title">
             <h:outputText value="#{bundle.ListCommentaireTitle}"></h:outputText>
         </ui:define>
+
         <ui:define name="body">
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListCommentaireEmpty}" rendered="#{commentaireController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{commentaireController.items.rowCount > 0}">
-                    <h:outputText value="#{commentaireController.pagination.pageFirstItem + 1}..#{commentaireController.pagination.pageLastItem + 1}/#{commentaireController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{commentaireController.previous}" value="#{bundle.Previous} #{commentaireController.pagination.pageSize}" rendered="#{commentaireController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{commentaireController.next}" value="#{bundle.Next} #{commentaireController.pagination.pageSize}" rendered="#{commentaireController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{commentaireController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
+            <h:form id="CommentaireListForm">
+                <p:panel header="#{bundle.ListCommentaireTitle}">
+                    <p:dataTable id="datalist" value="#{commentaireController.items}" var="item"
+                                 selectionMode="single" selection="#{commentaireController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommentaireTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommentaireTitle_texte}"/>
                             </f:facet>
                             <h:outputText value="#{item.texte}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommentaireTitle_dateCommentaire}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateCommentaire}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommentaireTitle_user}"/>
                             </f:facet>
                             <h:outputText value="#{item.user}"/>
-                        </h:column>
-                        <h:column>
+                        </p:column>
+                        <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListCommentaireTitle_publication}"/>
                             </f:facet>
                             <h:outputText value="#{item.publication}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{commentaireController.prepareView}" value="#{bundle.ListCommentaireViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{commentaireController.prepareEdit}" value="#{bundle.ListCommentaireEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{commentaireController.destroy}" value="#{bundle.ListCommentaireDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{commentaireController.prepareCreate}" value="#{bundle.ListCommentaireCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListCommentaireIndexLink}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{commentaireController.prepareCreate}" update=":CommentaireCreateForm" oncomplete="PF('CommentaireCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CommentaireViewForm" oncomplete="PF('CommentaireViewDialog').show()" disabled="#{empty commentaireController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CommentaireEditForm" oncomplete="PF('CommentaireEditDialog').show()" disabled="#{empty commentaireController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{commentaireController.destroy}" update=":growl,datalist" disabled="#{empty commentaireController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
             </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -3,48 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewGroupeTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewGroupeLabel_nom}"/>
-                    <h:outputText value="#{groupeController.selected.nom}" title="#{bundle.ViewGroupeTitle_nom}"/>
-                    <h:outputText value="#{bundle.ViewGroupeLabel_etat}"/>
-                    <h:outputText value="#{groupeController.selected.etat}" title="#{bundle.ViewGroupeTitle_etat}"/>
-                    <h:outputText value="#{bundle.ViewGroupeLabel_type}"/>
-                    <h:outputText value="#{groupeController.selected.type}" title="#{bundle.ViewGroupeTitle_type}"/>
-                    <h:outputText value="#{bundle.ViewGroupeLabel_dateCreation}"/>
-                    <h:outputText value="#{groupeController.selected.dateCreation}" title="#{bundle.ViewGroupeTitle_dateCreation}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                    <h:outputText value="#{bundle.ViewGroupeLabel_admin}"/>
-                    <h:outputText value="#{groupeController.selected.admin}" title="#{bundle.ViewGroupeTitle_admin}"/>
-                    <h:outputText value="#{bundle.ViewGroupeLabel_id}"/>
-                    <h:outputText value="#{groupeController.selected.id}" title="#{bundle.ViewGroupeTitle_id}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{groupeController.destroyAndView}" value="#{bundle.ViewGroupeDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewGroupeEditLink}"/>
-                <br />
-                <h:commandLink action="#{groupeController.prepareCreate}" value="#{bundle.ViewGroupeCreateLink}" />
-                <br />
-                <h:commandLink action="#{groupeController.prepareList}" value="#{bundle.ViewGroupeShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewGroupeIndexLink}"/>
+    <ui:composition>
 
+        <p:dialog id="GroupeViewDlg" widgetVar="GroupeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewGroupeTitle}">
+            <h:form id="GroupeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{groupeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGroupeLabel_nom}"/>
+                        <h:outputText value="#{groupeController.selected.nom}" title="#{bundle.ViewGroupeTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_etat}"/>
+                        <h:outputText value="#{groupeController.selected.etat}" title="#{bundle.ViewGroupeTitle_etat}"/>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_type}"/>
+                        <h:outputText value="#{groupeController.selected.type}" title="#{bundle.ViewGroupeTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_dateCreation}"/>
+                        <h:outputText value="#{groupeController.selected.dateCreation}" title="#{bundle.ViewGroupeTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_admin}"/>
+                        <h:outputText value="#{groupeController.selected.admin}" title="#{bundle.ViewGroupeTitle_admin}"/>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_id}"/>
+                        <h:outputText value="#{groupeController.selected.id}" title="#{bundle.ViewGroupeTitle_id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="GroupeViewDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>

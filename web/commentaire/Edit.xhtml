@@ -3,46 +3,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.EditCommentaireTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditCommentaireLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{commentaireController.selected.id}" title="#{bundle.EditCommentaireTitle_id}" />
-                    <h:outputLabel value="#{bundle.EditCommentaireLabel_texte}" for="texte" />
-                    <h:inputText id="texte" value="#{commentaireController.selected.texte}" title="#{bundle.EditCommentaireTitle_texte}" />
-                    <h:outputLabel value="#{bundle.EditCommentaireLabel_dateCommentaire}" for="dateCommentaire" />
-                    <h:inputText id="dateCommentaire" value="#{commentaireController.selected.dateCommentaire}" title="#{bundle.EditCommentaireTitle_dateCommentaire}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:inputText>
-                    <h:outputLabel value="#{bundle.EditCommentaireLabel_user}" for="user" />
-                    <h:selectOneMenu id="user" value="#{commentaireController.selected.user}" title="#{bundle.EditCommentaireTitle_user}" >
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.EditCommentaireLabel_publication}" for="publication" />
-                    <h:selectOneMenu id="publication" value="#{commentaireController.selected.publication}" title="#{bundle.EditCommentaireTitle_publication}" >
-                        <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <h:commandLink action="#{commentaireController.update}" value="#{bundle.EditCommentaireSaveLink}"/>
-                <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditCommentaireViewLink}"/>
-                <br />
-                <h:commandLink action="#{commentaireController.prepareList}" value="#{bundle.EditCommentaireShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditCommentaireIndexLink}" />
+    <ui:composition>
+
+        <p:dialog id="CommentaireEditDlg" widgetVar="CommentaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCommentaireTitle}">
+            <h:form id="CommentaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{commentaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{commentaireController.selected.id}" title="#{bundle.EditCommentaireTitle_id}" />
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_texte}" for="texte" />
+                        <p:inputText id="texte" value="#{commentaireController.selected.texte}" title="#{bundle.EditCommentaireTitle_texte}" />
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_dateCommentaire}" for="dateCommentaire" />
+                        <p:calendar id="dateCommentaire" pattern="MM/dd/yyyy" value="#{commentaireController.selected.dateCommentaire}" title="#{bundle.EditCommentaireTitle_dateCommentaire}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_user}" for="user" />
+                        <p:selectOneMenu id="user" value="#{commentaireController.selected.user}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userItem"
+                                           itemValue="#{userItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_publication}" for="publication" />
+                        <p:selectOneMenu id="publication" value="#{commentaireController.selected.publication}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
+                                           var="publicationItem"
+                                           itemValue="#{publicationItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{commentaireController.update}" value="#{bundle.Save}" update="display,:CommentaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CommentaireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CommentaireEditDialog.hide()"/>
+                </h:panelGroup>
             </h:form>
-        </ui:define>
-    </ui:composition>
+        </p:dialog>
 
+    </ui:composition>
 </html>
