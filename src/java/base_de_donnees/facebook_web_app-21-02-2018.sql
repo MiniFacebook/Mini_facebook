@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2018 at 10:43 AM
+-- Generation Time: Feb 21, 2018 at 07:05 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -310,6 +310,31 @@ INSERT INTO `sequence` (`SEQ_NAME`, `SEQ_COUNT`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `signaler`
+--
+
+CREATE TABLE `signaler` (
+  `ID` bigint(20) NOT NULL,
+  `PUBLICATIONSIGNALE_ID` bigint(20) DEFAULT NULL,
+  `USERSIGNALE_LOGIN` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `signaleritem`
+--
+
+CREATE TABLE `signaleritem` (
+  `ID` bigint(20) NOT NULL,
+  `DATESIGNALER` date DEFAULT NULL,
+  `SIGNALER_ID` bigint(20) DEFAULT NULL,
+  `USERACTION_LOGIN` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -328,10 +353,10 @@ CREATE TABLE `user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `video`
+-- Table structure for table `videos`
 --
 
-CREATE TABLE `video` (
+CREATE TABLE `videos` (
   `ID` bigint(20) NOT NULL,
   `EXTENSION` varchar(255) DEFAULT NULL,
   `USER_LOGIN` varchar(255) DEFAULT NULL
@@ -493,6 +518,22 @@ ALTER TABLE `sequence`
   ADD PRIMARY KEY (`SEQ_NAME`);
 
 --
+-- Indexes for table `signaler`
+--
+ALTER TABLE `signaler`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_SIGNALER_PUBLICATIONSIGNALE_ID` (`PUBLICATIONSIGNALE_ID`),
+  ADD KEY `FK_SIGNALER_USERSIGNALE_LOGIN` (`USERSIGNALE_LOGIN`);
+
+--
+-- Indexes for table `signaleritem`
+--
+ALTER TABLE `signaleritem`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_SIGNALERITEM_USERACTION_LOGIN` (`USERACTION_LOGIN`),
+  ADD KEY `FK_SIGNALERITEM_SIGNALER_ID` (`SIGNALER_ID`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -500,11 +541,11 @@ ALTER TABLE `user`
   ADD KEY `FK_USER_LIEU_ID` (`LIEU_ID`);
 
 --
--- Indexes for table `video`
+-- Indexes for table `videos`
 --
-ALTER TABLE `video`
+ALTER TABLE `videos`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `FK_VIDEO_USER_LOGIN` (`USER_LOGIN`);
+  ADD KEY `FK_VIDEOS_USER_LOGIN` (`USER_LOGIN`);
 
 --
 -- Constraints for dumped tables
@@ -622,16 +663,30 @@ ALTER TABLE `publication`
   ADD CONSTRAINT `FK_PUBLICATION_RECEPTEURPUBLICARTION_LOGIN` FOREIGN KEY (`RECEPTEURPUBLICARTION_LOGIN`) REFERENCES `user` (`LOGIN`);
 
 --
+-- Constraints for table `signaler`
+--
+ALTER TABLE `signaler`
+  ADD CONSTRAINT `FK_SIGNALER_PUBLICATIONSIGNALE_ID` FOREIGN KEY (`PUBLICATIONSIGNALE_ID`) REFERENCES `publication` (`ID`),
+  ADD CONSTRAINT `FK_SIGNALER_USERSIGNALE_LOGIN` FOREIGN KEY (`USERSIGNALE_LOGIN`) REFERENCES `user` (`LOGIN`);
+
+--
+-- Constraints for table `signaleritem`
+--
+ALTER TABLE `signaleritem`
+  ADD CONSTRAINT `FK_SIGNALERITEM_SIGNALER_ID` FOREIGN KEY (`SIGNALER_ID`) REFERENCES `signaler` (`ID`),
+  ADD CONSTRAINT `FK_SIGNALERITEM_USERACTION_LOGIN` FOREIGN KEY (`USERACTION_LOGIN`) REFERENCES `user` (`LOGIN`);
+
+--
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `FK_USER_LIEU_ID` FOREIGN KEY (`LIEU_ID`) REFERENCES `lieu` (`ID`);
 
 --
--- Constraints for table `video`
+-- Constraints for table `videos`
 --
-ALTER TABLE `video`
-  ADD CONSTRAINT `FK_VIDEO_USER_LOGIN` FOREIGN KEY (`USER_LOGIN`) REFERENCES `user` (`LOGIN`);
+ALTER TABLE `videos`
+  ADD CONSTRAINT `FK_VIDEOS_USER_LOGIN` FOREIGN KEY (`USER_LOGIN`) REFERENCES `user` (`LOGIN`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
