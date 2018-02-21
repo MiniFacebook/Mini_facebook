@@ -41,6 +41,8 @@ public class Publication implements Serializable {
     private User emetteurPublicartion;
     @ManyToOne
     private Groupe groupe;
+    @OneToMany(mappedBy = "publicationSignale")
+    private List<Signaler> signalers;
 
     public Publication() {
     }

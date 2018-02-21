@@ -62,10 +62,30 @@ public class User implements Serializable {
     private List<EtablissementItem> etablissementItems;
     @OneToMany(mappedBy = "user")
     private List<EmploiItem> emploiItems;
-    @OneToMany(mappedBy = "user")
-    private List<Video> videos;
+    
     @OneToMany(mappedBy = "admin")
     private List<GroupeAdmin> groupeAdmins;
+    @OneToMany(mappedBy = "user")
+    private List<Videos> videoss;
+    
+
+    public List<GroupeAdmin> getGroupeAdmins() {
+        return groupeAdmins;
+    }
+
+    public void setGroupeAdmins(List<GroupeAdmin> groupeAdmins) {
+        this.groupeAdmins = groupeAdmins;
+    }
+
+    public List<SignalerItem> getSignalerItems() {
+        return signalerItems;
+    }
+
+    public void setSignalerItems(List<SignalerItem> signalerItems) {
+        this.signalerItems = signalerItems;
+    }
+    @OneToMany(mappedBy = "userAction")
+    private List<SignalerItem> signalerItems;
    
     public List<EmploiItem> getEmploiItems() {
         return emploiItems;
@@ -147,13 +167,6 @@ public class User implements Serializable {
         this.publications = publications;
     }
 
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
 
     public List<Photo> getPhotos() {
         return photos;
