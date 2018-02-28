@@ -30,7 +30,7 @@ public class Etablissement implements Serializable {
     private String niveau;
     private String formation;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date annee;
+    private Date dateEtablissement;
     @OneToMany(mappedBy = "etablissement")
     private List<EtablissementItem> etablissementItems;
 
@@ -75,12 +75,12 @@ public class Etablissement implements Serializable {
         this.formation = formation;
     }
 
-    public Date getAnnee() {
-        return annee;
+    public Date getDateEtablissement() {
+        return dateEtablissement;
     }
 
-    public void setAnnee(Date annee) {
-        this.annee = annee;
+    public void setDateEtablissement(Date dateEtablissement) {
+        this.dateEtablissement = dateEtablissement;
     }
     
     
@@ -117,7 +117,7 @@ public class Etablissement implements Serializable {
 
     @Override
     public String toString() {
-        return "Etablissement{" + "id=" + id + ", libelle=" + libelle + ", niveau=" + niveau + ", formation=" + formation + ", annee=" + annee + '}';
+        return "Etablissement{" + "id=" + id + ", libelle=" + libelle + ", niveau=" + niveau + ", formation=" + formation + ", annee=" + dateEtablissement + '}';
     }
 
     

@@ -28,7 +28,7 @@ public class Lieu implements Serializable {
     private String adresse;
     private String ville;
     private String villeOrigine;
-    private String periode;
+    
 
     public Lieu() {
     }
@@ -69,13 +69,7 @@ public class Lieu implements Serializable {
         this.villeOrigine = villeOrigine;
     }
 
-    public String getPeriode() {
-        return periode;
-    }
-
-    public void setPeriode(String periode) {
-        this.periode = periode;
-    }
+  
     
 
     public Long getId() {
@@ -108,7 +102,7 @@ public class Lieu implements Serializable {
 
     @Override
     public String toString() {
-        return "Lieu{" + "id=" + id + ", adresse=" + adresse + ", ville=" + ville + ", villeOrigine=" + villeOrigine + ", periode=" + periode + '}';
+        return "Lieu{" + "id=" + id + ", adresse=" + adresse + ", ville=" + ville + ", villeOrigine=" + villeOrigine + '}';
     }
 
     

@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.EditEtablissementLabel_formation}" for="formation" />
                         <p:inputText id="formation" value="#{etablissementController.selected.formation}" title="#{bundle.EditEtablissementTitle_formation}" />
                         <p:outputLabel value="#{bundle.EditEtablissementLabel_annee}" for="annee" />
-                        <p:calendar id="annee" pattern="MM/dd/yyyy" value="#{etablissementController.selected.annee}" title="#{bundle.EditEtablissementTitle_annee}"  showOn="button"/>
+                        <p:calendar id="annee" pattern="MM/dd/yyyy" value="#{etablissementController.selected.dateEtablissement}" title="#{bundle.EditEtablissementTitle_annee}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditEtablissementLabel_id}" for="id" />
                         <p:inputText id="id" value="#{etablissementController.selected.id}" title="#{bundle.EditEtablissementTitle_id}" />
                     </p:panelGrid>
