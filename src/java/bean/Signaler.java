@@ -28,6 +28,30 @@ public class Signaler implements Serializable {
     private User userSignale;
     @ManyToOne
     private Publication publicationSignale;
+
+    public User getUserSignale() {
+        return userSignale;
+    }
+
+    public void setUserSignale(User userSignale) {
+        this.userSignale = userSignale;
+    }
+
+    public Publication getPublicationSignale() {
+        return publicationSignale;
+    }
+
+    public void setPublicationSignale(Publication publicationSignale) {
+        this.publicationSignale = publicationSignale;
+    }
+
+    public List<SignalerItem> getSignalerItems() {
+        return signalerItems;
+    }
+
+    public void setSignalerItems(List<SignalerItem> signalerItems) {
+        this.signalerItems = signalerItems;
+    }
     @OneToMany(mappedBy = "signaler")
     private List<SignalerItem> signalerItems;
 
@@ -74,7 +98,9 @@ public class Signaler implements Serializable {
 
     @Override
     public String toString() {
-        return "bean.Signaler[ id=" + id + " ]";
+        return "Signaler{" + "id=" + id + '}';
     }
+
+   
     
 }

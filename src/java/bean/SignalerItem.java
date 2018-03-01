@@ -20,6 +20,30 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class SignalerItem implements Serializable {
+
+    public Date getDateSignaler() {
+        return dateSignaler;
+    }
+
+    public void setDateSignaler(Date dateSignaler) {
+        this.dateSignaler = dateSignaler;
+    }
+
+    public User getUserAction() {
+        return userAction;
+    }
+
+    public void setUserAction(User userAction) {
+        this.userAction = userAction;
+    }
+
+    public Signaler getSignaler() {
+        return signaler;
+    }
+
+    public void setSignaler(Signaler signaler) {
+        this.signaler = signaler;
+    }
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
