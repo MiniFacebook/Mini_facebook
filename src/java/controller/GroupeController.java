@@ -3,7 +3,7 @@ package controller;
 import bean.Groupe;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.GroupeFacade;
+import service.GroupeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("groupeController")
 @SessionScoped
 public class GroupeController implements Serializable {
 
-
-    @EJB private sevice.GroupeFacade ejbFacade;
+    @EJB
+    private service.GroupeFacade ejbFacade;
     private List<Groupe> items = null;
     private Groupe selected;
 
@@ -122,7 +121,7 @@ public class GroupeController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Groupe.class)
+    @FacesConverter(forClass = Groupe.class)
     public static class GroupeControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class GroupeController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GroupeController controller = (GroupeController)facesContext.getApplication().getELResolver().
+            GroupeController controller = (GroupeController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupeController");
             return controller.getGroupe(getKey(value));
         }

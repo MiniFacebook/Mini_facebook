@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class VideosFacade extends AbstractFacade<Videos> {
+
     @PersistenceContext(unitName = "FacebookWebAppPU")
     private EntityManager em;
 

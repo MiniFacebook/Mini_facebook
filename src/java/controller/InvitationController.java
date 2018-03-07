@@ -3,7 +3,7 @@ package controller;
 import bean.Invitation;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.InvitationFacade;
+import service.InvitationFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("invitationController")
 @SessionScoped
 public class InvitationController implements Serializable {
 
-
-    @EJB private sevice.InvitationFacade ejbFacade;
+    @EJB
+    private service.InvitationFacade ejbFacade;
     private List<Invitation> items = null;
     private Invitation selected;
 
@@ -122,7 +121,7 @@ public class InvitationController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Invitation.class)
+    @FacesConverter(forClass = Invitation.class)
     public static class InvitationControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class InvitationController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            InvitationController controller = (InvitationController)facesContext.getApplication().getELResolver().
+            InvitationController controller = (InvitationController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "invitationController");
             return controller.getInvitation(getKey(value));
         }

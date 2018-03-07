@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class GroupeItemFacade extends AbstractFacade<GroupeItem> {
+
     @PersistenceContext(unitName = "FacebookWebAppPU")
     private EntityManager em;
 

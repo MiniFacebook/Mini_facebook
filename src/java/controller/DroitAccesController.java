@@ -3,7 +3,7 @@ package controller;
 import bean.DroitAcces;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.DroitAccesFacade;
+import service.DroitAccesFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class DroitAccesController implements Serializable {
 
     @EJB
-    private sevice.DroitAccesFacade ejbFacade;
+    private service.DroitAccesFacade ejbFacade;
     private List<DroitAcces> items = null;
     private DroitAcces selected;
 

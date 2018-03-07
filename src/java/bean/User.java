@@ -42,30 +42,10 @@ public class User implements Serializable {
     private Boolean undo;
     private Boolean adminatrateur;
     private Boolean droite;
-
-    public Boolean getDroite() {
-        return droite;
-    }
-
-    public void setDroite(Boolean droite) {
-        this.droite = droite;
-    }
-    
-    
-
-    public Boolean getAdminatrateur() {
-        return adminatrateur;
-    }
-
-    public void setAdminatrateur(Boolean adminatrateur) {
-        this.adminatrateur = adminatrateur;
-    }
-
-   
     
     @ManyToOne
     private Lieu lieu;
-        @OneToMany(mappedBy = "concerne")
+    @OneToMany(mappedBy = "concerne")
     private List<NotificationItem> notificationItems;
     @OneToMany(mappedBy = "liker")
     private List<Aime> aimes;
@@ -104,6 +84,23 @@ public class User implements Serializable {
         this.dateSuppression = dateSuppression;
     }
 
+        public Boolean getDroite() {
+        return droite;
+    }
+
+    public void setDroite(Boolean droite) {
+        this.droite = droite;
+    }
+    
+    
+
+    public Boolean getAdminatrateur() {
+        return adminatrateur;
+    }
+
+    public void setAdminatrateur(Boolean adminatrateur) {
+        this.adminatrateur = adminatrateur;
+    }
     public Date getDateModification() {
         return dateModification;
     }

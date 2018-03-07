@@ -3,7 +3,7 @@ package controller;
 import bean.User;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.UserFacade;
+import service.UserFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("userController")
 @SessionScoped
 public class UserController implements Serializable {
 
-
-    @EJB private sevice.UserFacade ejbFacade;
+    @EJB
+    private service.UserFacade ejbFacade;
     private List<User> items = null;
     private User selected;
 
@@ -122,7 +121,7 @@ public class UserController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=User.class)
+    @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class UserController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            UserController controller = (UserController)facesContext.getApplication().getELResolver().
+            UserController controller = (UserController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "userController");
             return controller.getUser(getKey(value));
         }

@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class BlocageFacade extends AbstractFacade<Blocage> {
+
     @PersistenceContext(unitName = "FacebookWebAppPU")
     private EntityManager em;
 

@@ -3,7 +3,7 @@ package controller;
 import bean.Emploi;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.EmploiFacade;
+import service.EmploiFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("emploiController")
 @SessionScoped
 public class EmploiController implements Serializable {
 
-
-    @EJB private sevice.EmploiFacade ejbFacade;
+    @EJB
+    private service.EmploiFacade ejbFacade;
     private List<Emploi> items = null;
     private Emploi selected;
 
@@ -122,7 +121,7 @@ public class EmploiController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Emploi.class)
+    @FacesConverter(forClass = Emploi.class)
     public static class EmploiControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class EmploiController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            EmploiController controller = (EmploiController)facesContext.getApplication().getELResolver().
+            EmploiController controller = (EmploiController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "emploiController");
             return controller.getEmploi(getKey(value));
         }

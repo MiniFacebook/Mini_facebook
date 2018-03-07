@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class InvitationFacade extends AbstractFacade<Invitation> {
+
     @PersistenceContext(unitName = "FacebookWebAppPU")
     private EntityManager em;
 

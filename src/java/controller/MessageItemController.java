@@ -3,7 +3,7 @@ package controller;
 import bean.MessageItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.MessageItemFacade;
+import service.MessageItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("messageItemController")
 @SessionScoped
 public class MessageItemController implements Serializable {
 
-
-    @EJB private sevice.MessageItemFacade ejbFacade;
+    @EJB
+    private service.MessageItemFacade ejbFacade;
     private List<MessageItem> items = null;
     private MessageItem selected;
 
@@ -122,7 +121,7 @@ public class MessageItemController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=MessageItem.class)
+    @FacesConverter(forClass = MessageItem.class)
     public static class MessageItemControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class MessageItemController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MessageItemController controller = (MessageItemController)facesContext.getApplication().getELResolver().
+            MessageItemController controller = (MessageItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "messageItemController");
             return controller.getMessageItem(getKey(value));
         }

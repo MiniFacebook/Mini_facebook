@@ -3,7 +3,7 @@ package controller;
 import bean.Notification;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.NotificationFacade;
+import service.NotificationFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("notificationController")
 @SessionScoped
 public class NotificationController implements Serializable {
 
-
-    @EJB private sevice.NotificationFacade ejbFacade;
+    @EJB
+    private service.NotificationFacade ejbFacade;
     private List<Notification> items = null;
     private Notification selected;
 
@@ -122,7 +121,7 @@ public class NotificationController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Notification.class)
+    @FacesConverter(forClass = Notification.class)
     public static class NotificationControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class NotificationController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            NotificationController controller = (NotificationController)facesContext.getApplication().getELResolver().
+            NotificationController controller = (NotificationController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "notificationController");
             return controller.getNotification(getKey(value));
         }

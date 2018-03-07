@@ -3,7 +3,7 @@ package controller;
 import bean.Lieu;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.LieuFacade;
+import service.LieuFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("lieuController")
 @SessionScoped
 public class LieuController implements Serializable {
 
-
-    @EJB private sevice.LieuFacade ejbFacade;
+    @EJB
+    private service.LieuFacade ejbFacade;
     private List<Lieu> items = null;
     private Lieu selected;
 
@@ -122,7 +121,7 @@ public class LieuController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Lieu.class)
+    @FacesConverter(forClass = Lieu.class)
     public static class LieuControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class LieuController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            LieuController controller = (LieuController)facesContext.getApplication().getELResolver().
+            LieuController controller = (LieuController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "lieuController");
             return controller.getLieu(getKey(value));
         }

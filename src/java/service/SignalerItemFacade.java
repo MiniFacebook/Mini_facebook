@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class SignalerItemFacade extends AbstractFacade<SignalerItem> {
+
     @PersistenceContext(unitName = "FacebookWebAppPU")
     private EntityManager em;
 

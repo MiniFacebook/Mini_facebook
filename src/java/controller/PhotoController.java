@@ -3,7 +3,7 @@ package controller;
 import bean.Photo;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.PhotoFacade;
+import service.PhotoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("photoController")
 @SessionScoped
 public class PhotoController implements Serializable {
 
-
-    @EJB private sevice.PhotoFacade ejbFacade;
+    @EJB
+    private service.PhotoFacade ejbFacade;
     private List<Photo> items = null;
     private Photo selected;
 
@@ -122,7 +121,7 @@ public class PhotoController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Photo.class)
+    @FacesConverter(forClass = Photo.class)
     public static class PhotoControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class PhotoController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PhotoController controller = (PhotoController)facesContext.getApplication().getELResolver().
+            PhotoController controller = (PhotoController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "photoController");
             return controller.getPhoto(getKey(value));
         }

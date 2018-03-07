@@ -3,7 +3,7 @@ package controller;
 import bean.EtablissementItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import sevice.EtablissementItemFacade;
+import service.EtablissementItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("etablissementItemController")
 @SessionScoped
 public class EtablissementItemController implements Serializable {
 
-
-    @EJB private sevice.EtablissementItemFacade ejbFacade;
+    @EJB
+    private service.EtablissementItemFacade ejbFacade;
     private List<EtablissementItem> items = null;
     private EtablissementItem selected;
 
@@ -122,7 +121,7 @@ public class EtablissementItemController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=EtablissementItem.class)
+    @FacesConverter(forClass = EtablissementItem.class)
     public static class EtablissementItemControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class EtablissementItemController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            EtablissementItemController controller = (EtablissementItemController)facesContext.getApplication().getELResolver().
+            EtablissementItemController controller = (EtablissementItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "etablissementItemController");
             return controller.getEtablissementItem(getKey(value));
         }
