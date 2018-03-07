@@ -26,6 +26,37 @@ public class Aime implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateAime;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateModification;
+    private Long code; 
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
+    }
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
+    
+    
     @ManyToOne
     private User liker;
     @ManyToOne

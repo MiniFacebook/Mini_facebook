@@ -28,6 +28,16 @@ public class Signaler implements Serializable {
     private User userSignale;
     @ManyToOne
     private Publication publicationSignale;
+    private String cause;
+
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+    
 
     public User getUserSignale() {
         return userSignale;
@@ -98,9 +108,10 @@ public class Signaler implements Serializable {
 
     @Override
     public String toString() {
-        return "Signaler{" + "id=" + id + '}';
+        return "Signaler{" + "id=" + id + ", cause=" + cause + '}';
     }
 
+   
    
     
 }

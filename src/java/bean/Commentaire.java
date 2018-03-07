@@ -22,6 +22,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Commentaire implements Serializable {
+
     @OneToMany(mappedBy = "commentaire")
     private List<Aime> aimes;
     private static final long serialVersionUID = 1L;
@@ -31,6 +32,44 @@ public class Commentaire implements Serializable {
     private String texte;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCommentaire;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateModification;
+    private Long code;
+    private Boolean undo;
+
+    public Boolean getUndo() {
+        return undo;
+    }
+
+    public void setUndo(Boolean undo) {
+        this.undo = undo;
+    }
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
+    }
 
     public List<Contenu> getContenus() {
         return contenus;
@@ -96,7 +135,6 @@ public class Commentaire implements Serializable {
     public void setPublication(Publication publication) {
         this.publication = publication;
     }
-    
 
     public void setId(Long id) {
         this.id = id;
@@ -127,6 +165,4 @@ public class Commentaire implements Serializable {
         return "Commentaire{" + "id=" + id + ", texte=" + texte + ", dateCommentaire=" + dateCommentaire + '}';
     }
 
-   
-    
 }

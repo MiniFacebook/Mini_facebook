@@ -6,60 +6,41 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
 
 /**
  *
  * @author lenovo
  */
 @Entity
-public class SignalerItem implements Serializable {
+public class DroitAcces implements Serializable {
 
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dateSignaler;
-    @ManyToOne
-    private User userAction;
-    @ManyToOne
-    private Signaler signaler; 
+   
+
+   private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+   
     
+
 
     public Long getId() {
         return id;
     }
-public Date getDateSignaler() {
-        return dateSignaler;
-    }
 
-    public void setDateSignaler(Date dateSignaler) {
-        this.dateSignaler = dateSignaler;
-    }
-
-    public User getUserAction() {
-        return userAction;
-    }
-
-    public void setUserAction(User userAction) {
-        this.userAction = userAction;
-    }
-
-    public Signaler getSignaler() {
-        return signaler;
-    }
-
-    public void setSignaler(Signaler signaler) {
-        this.signaler = signaler;
-    }
     public void setId(Long id) {
         this.id = id;
     }
@@ -74,10 +55,10 @@ public Date getDateSignaler() {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SignalerItem)) {
+        if (!(object instanceof DroitAcces)) {
             return false;
         }
-        SignalerItem other = (SignalerItem) object;
+        DroitAcces other = (DroitAcces) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,7 +67,10 @@ public Date getDateSignaler() {
 
     @Override
     public String toString() {
-        return "bean.SignalerItem[ id=" + id + " ]";
+        return "DroitAcces{" + "id=" + id + ", type=" + type + '}';
     }
+
+   
+
     
 }

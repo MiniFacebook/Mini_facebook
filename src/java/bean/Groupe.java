@@ -40,6 +40,14 @@ public class Groupe implements Serializable {
     @OneToMany(mappedBy = "groupe")
     private List<GroupeAdmin> groupeAdmins;
 
+    public List<GroupeAdmin> getGroupeAdmins() {
+        return groupeAdmins;
+    }
+
+    public void setGroupeAdmins(List<GroupeAdmin> groupeAdmins) {
+        this.groupeAdmins = groupeAdmins;
+    }
+
     public Groupe() {
     }
 
