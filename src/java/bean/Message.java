@@ -34,6 +34,44 @@ public class Message implements Serializable {
     private Date dateEnvoi;
     @ManyToOne
     private User emetteur;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateModification;
+    private Long code; 
+    private Boolean undo;
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
+    }
+
+    public Boolean getUndo() {
+        return undo;
+    }
+
+    public void setUndo(Boolean undo) {
+        this.undo = undo;
+    }
 
     public List<Contenu> getContenus() {
         return contenus;
@@ -113,8 +151,10 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" + "id=" + id + ", dateEnvoi=" + dateEnvoi + ", texte=" + texte + '}';
+        return "Message{" + "id=" + id + ", dateEnvoi=" + dateEnvoi + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + ", texte=" + texte + '}';
     }
+
+   
 
    
     

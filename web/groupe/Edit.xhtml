@@ -12,6 +12,14 @@
             <h:form id="GroupeEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{groupeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGroupeLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{groupeController.selected.dateSuppression}" title="#{bundle.EditGroupeTitle_dateSuppression}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGroupeLabel_dateModification}" for="dateModification" />
+                        <p:calendar id="dateModification" pattern="MM/dd/yyyy" value="#{groupeController.selected.dateModification}" title="#{bundle.EditGroupeTitle_dateModification}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditGroupeLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{groupeController.selected.code}" title="#{bundle.EditGroupeTitle_code}" />
+                        <p:outputLabel value="#{bundle.EditGroupeLabel_undo}" for="undo" />
+                        <p:selectBooleanCheckbox id="undo" value="#{groupeController.selected.undo}" />
                         <p:outputLabel value="#{bundle.EditGroupeLabel_nom}" for="nom" />
                         <p:inputText id="nom" value="#{groupeController.selected.nom}" title="#{bundle.EditGroupeTitle_nom}" />
                         <p:outputLabel value="#{bundle.EditGroupeLabel_etat}" for="etat" />

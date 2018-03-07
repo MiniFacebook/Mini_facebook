@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("contenuController")
 @SessionScoped
 public class ContenuController implements Serializable {
 
-    @EJB
-    private sevice.ContenuFacade ejbFacade;
+
+    @EJB private sevice.ContenuFacade ejbFacade;
     private List<Contenu> items = null;
     private Contenu selected;
 
@@ -121,7 +122,7 @@ public class ContenuController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Contenu.class)
+    @FacesConverter(forClass=Contenu.class)
     public static class ContenuControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class ContenuController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            ContenuController controller = (ContenuController) facesContext.getApplication().getELResolver().
+            ContenuController controller = (ContenuController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "contenuController");
             return controller.getContenu(getKey(value));
         }

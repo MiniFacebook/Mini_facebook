@@ -6,6 +6,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -20,6 +22,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Signaler implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +32,16 @@ public class Signaler implements Serializable {
     @ManyToOne
     private Publication publicationSignale;
     private String cause;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
 
     public String getCause() {
         return cause;
@@ -37,7 +50,6 @@ public class Signaler implements Serializable {
     public void setCause(String cause) {
         this.cause = cause;
     }
-    
 
     public User getUserSignale() {
         return userSignale;
@@ -108,10 +120,7 @@ public class Signaler implements Serializable {
 
     @Override
     public String toString() {
-        return "Signaler{" + "id=" + id + ", cause=" + cause + '}';
+        return "Signaler{" + "id=" + id + ", cause=" + cause + ", dateSuppression=" + dateSuppression + '}';
     }
 
-   
-   
-    
 }

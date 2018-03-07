@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("aimeController")
 @SessionScoped
 public class AimeController implements Serializable {
 
-    @EJB
-    private sevice.AimeFacade ejbFacade;
+
+    @EJB private sevice.AimeFacade ejbFacade;
     private List<Aime> items = null;
     private Aime selected;
 
@@ -121,7 +122,7 @@ public class AimeController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Aime.class)
+    @FacesConverter(forClass=Aime.class)
     public static class AimeControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class AimeController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            AimeController controller = (AimeController) facesContext.getApplication().getELResolver().
+            AimeController controller = (AimeController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "aimeController");
             return controller.getAime(getKey(value));
         }

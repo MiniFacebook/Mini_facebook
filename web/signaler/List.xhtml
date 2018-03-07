@@ -29,6 +29,14 @@
 
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerTitle_dateSuppression}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateSuppression}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSignalerTitle_cause}"/>
                             </f:facet>
                             <h:outputText value="#{item.cause}"/>

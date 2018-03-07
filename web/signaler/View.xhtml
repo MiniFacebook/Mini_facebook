@@ -12,6 +12,10 @@
             <h:form id="SignalerViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{signalerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSignalerLabel_dateSuppression}"/>
+                        <h:outputText value="#{signalerController.selected.dateSuppression}" title="#{bundle.ViewSignalerTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewSignalerLabel_cause}"/>
                         <h:outputText value="#{signalerController.selected.cause}" title="#{bundle.ViewSignalerTitle_cause}"/>
                         <h:outputText value="#{bundle.ViewSignalerLabel_userSignale}"/>

@@ -12,6 +12,14 @@
             <h:form id="MessageCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{messageController.selected.dateSuppression}" title="#{bundle.EditMessageTitle_dateSuppression}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_dateModification}" for="dateModification" />
+                        <p:calendar id="dateModification" pattern="MM/dd/yyyy" value="#{messageController.selected.dateModification}" title="#{bundle.EditMessageTitle_dateModification}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{messageController.selected.code}" title="#{bundle.CreateMessageTitle_code}" />
+                        <p:outputLabel value="#{bundle.CreateMessageLabel_undo}" for="undo" />
+                        <p:selectBooleanCheckbox id="undo" value="#{messageController.selected.undo}" />
                         <p:outputLabel value="#{bundle.CreateMessageLabel_dateEnvoi}" for="dateEnvoi" />
                         <p:calendar id="dateEnvoi" pattern="MM/dd/yyyy" value="#{messageController.selected.dateEnvoi}" title="#{bundle.EditMessageTitle_dateEnvoi}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateMessageLabel_emetteur}" for="emetteur" />

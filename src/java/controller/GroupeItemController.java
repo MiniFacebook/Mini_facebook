@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("groupeItemController")
 @SessionScoped
 public class GroupeItemController implements Serializable {
 
-    @EJB
-    private sevice.GroupeItemFacade ejbFacade;
+
+    @EJB private sevice.GroupeItemFacade ejbFacade;
     private List<GroupeItem> items = null;
     private GroupeItem selected;
 
@@ -121,7 +122,7 @@ public class GroupeItemController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = GroupeItem.class)
+    @FacesConverter(forClass=GroupeItem.class)
     public static class GroupeItemControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class GroupeItemController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GroupeItemController controller = (GroupeItemController) facesContext.getApplication().getELResolver().
+            GroupeItemController controller = (GroupeItemController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupeItemController");
             return controller.getGroupeItem(getKey(value));
         }

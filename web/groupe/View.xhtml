@@ -12,6 +12,18 @@
             <h:form id="GroupeViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{groupeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewGroupeLabel_dateSuppression}"/>
+                        <h:outputText value="#{groupeController.selected.dateSuppression}" title="#{bundle.ViewGroupeTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_dateModification}"/>
+                        <h:outputText value="#{groupeController.selected.dateModification}" title="#{bundle.ViewGroupeTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_code}"/>
+                        <h:outputText value="#{groupeController.selected.code}" title="#{bundle.ViewGroupeTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewGroupeLabel_undo}"/>
+                        <p:selectBooleanCheckbox value="#{groupeController.selected.undo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewGroupeLabel_nom}"/>
                         <h:outputText value="#{groupeController.selected.nom}" title="#{bundle.ViewGroupeTitle_nom}"/>
                         <h:outputText value="#{bundle.ViewGroupeLabel_etat}"/>

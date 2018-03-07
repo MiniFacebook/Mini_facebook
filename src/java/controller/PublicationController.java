@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("publicationController")
 @SessionScoped
 public class PublicationController implements Serializable {
 
-    @EJB
-    private sevice.PublicationFacade ejbFacade;
+
+    @EJB private sevice.PublicationFacade ejbFacade;
     private List<Publication> items = null;
     private Publication selected;
 
@@ -121,7 +122,7 @@ public class PublicationController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Publication.class)
+    @FacesConverter(forClass=Publication.class)
     public static class PublicationControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class PublicationController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            PublicationController controller = (PublicationController) facesContext.getApplication().getELResolver().
+            PublicationController controller = (PublicationController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "publicationController");
             return controller.getPublication(getKey(value));
         }

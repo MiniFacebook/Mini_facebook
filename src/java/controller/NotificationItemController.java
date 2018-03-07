@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("notificationItemController")
 @SessionScoped
 public class NotificationItemController implements Serializable {
 
-    @EJB
-    private sevice.NotificationItemFacade ejbFacade;
+
+    @EJB private sevice.NotificationItemFacade ejbFacade;
     private List<NotificationItem> items = null;
     private NotificationItem selected;
 
@@ -121,7 +122,7 @@ public class NotificationItemController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = NotificationItem.class)
+    @FacesConverter(forClass=NotificationItem.class)
     public static class NotificationItemControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class NotificationItemController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            NotificationItemController controller = (NotificationItemController) facesContext.getApplication().getELResolver().
+            NotificationItemController controller = (NotificationItemController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "notificationItemController");
             return controller.getNotificationItem(getKey(value));
         }

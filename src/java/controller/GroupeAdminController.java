@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("groupeAdminController")
 @SessionScoped
 public class GroupeAdminController implements Serializable {
 
-    @EJB
-    private sevice.GroupeAdminFacade ejbFacade;
+
+    @EJB private sevice.GroupeAdminFacade ejbFacade;
     private List<GroupeAdmin> items = null;
     private GroupeAdmin selected;
 
@@ -121,7 +122,7 @@ public class GroupeAdminController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = GroupeAdmin.class)
+    @FacesConverter(forClass=GroupeAdmin.class)
     public static class GroupeAdminControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class GroupeAdminController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            GroupeAdminController controller = (GroupeAdminController) facesContext.getApplication().getELResolver().
+            GroupeAdminController controller = (GroupeAdminController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupeAdminController");
             return controller.getGroupeAdmin(getKey(value));
         }

@@ -12,6 +12,16 @@
             <h:form id="PublicationEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{publicationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPublicationLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{publicationController.selected.dateSuppression}" title="#{bundle.EditPublicationTitle_dateSuppression}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPublicationLabel_dateModification}" for="dateModification" />
+                        <p:calendar id="dateModification" pattern="MM/dd/yyyy" value="#{publicationController.selected.dateModification}" title="#{bundle.EditPublicationTitle_dateModification}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPublicationLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{publicationController.selected.code}" title="#{bundle.EditPublicationTitle_code}" />
+                        <p:outputLabel value="#{bundle.EditPublicationLabel_undo}" for="undo" />
+                        <p:selectBooleanCheckbox id="undo" value="#{publicationController.selected.undo}" />
+                        <p:outputLabel value="#{bundle.EditPublicationLabel_droite}" for="droite" />
+                        <p:selectBooleanCheckbox id="droite" value="#{publicationController.selected.droite}" />
                         <p:outputLabel value="#{bundle.EditPublicationLabel_datePublication}" for="datePublication" />
                         <p:calendar id="datePublication" pattern="MM/dd/yyyy" value="#{publicationController.selected.datePublication}" title="#{bundle.EditPublicationTitle_datePublication}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditPublicationLabel_texte}" for="texte" />

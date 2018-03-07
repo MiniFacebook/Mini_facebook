@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("signalerController")
 @SessionScoped
 public class SignalerController implements Serializable {
 
-    @EJB
-    private sevice.SignalerFacade ejbFacade;
+
+    @EJB private sevice.SignalerFacade ejbFacade;
     private List<Signaler> items = null;
     private Signaler selected;
 
@@ -121,7 +122,7 @@ public class SignalerController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Signaler.class)
+    @FacesConverter(forClass=Signaler.class)
     public static class SignalerControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class SignalerController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            SignalerController controller = (SignalerController) facesContext.getApplication().getELResolver().
+            SignalerController controller = (SignalerController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "signalerController");
             return controller.getSignaler(getKey(value));
         }

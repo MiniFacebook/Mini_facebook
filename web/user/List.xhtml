@@ -29,6 +29,18 @@
 
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_droite}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.droite}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListUserTitle_adminatrateur}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.adminatrateur}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_dateSuppression}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateSuppression}">

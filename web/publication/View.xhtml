@@ -12,6 +12,20 @@
             <h:form id="PublicationViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{publicationController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPublicationLabel_dateSuppression}"/>
+                        <h:outputText value="#{publicationController.selected.dateSuppression}" title="#{bundle.ViewPublicationTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_dateModification}"/>
+                        <h:outputText value="#{publicationController.selected.dateModification}" title="#{bundle.ViewPublicationTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_code}"/>
+                        <h:outputText value="#{publicationController.selected.code}" title="#{bundle.ViewPublicationTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_undo}"/>
+                        <p:selectBooleanCheckbox value="#{publicationController.selected.undo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewPublicationLabel_droite}"/>
+                        <p:selectBooleanCheckbox value="#{publicationController.selected.droite}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewPublicationLabel_datePublication}"/>
                         <h:outputText value="#{publicationController.selected.datePublication}" title="#{bundle.ViewPublicationTitle_datePublication}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

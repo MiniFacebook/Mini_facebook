@@ -40,6 +40,61 @@ public class User implements Serializable {
     private Date dateModification;
     private Long code; 
     private Boolean undo;
+    private Boolean adminatrateur;
+    private Boolean droite;
+
+    public Boolean getDroite() {
+        return droite;
+    }
+
+    public void setDroite(Boolean droite) {
+        this.droite = droite;
+    }
+    
+    
+
+    public Boolean getAdminatrateur() {
+        return adminatrateur;
+    }
+
+    public void setAdminatrateur(Boolean adminatrateur) {
+        this.adminatrateur = adminatrateur;
+    }
+
+   
+    
+    @ManyToOne
+    private Lieu lieu;
+        @OneToMany(mappedBy = "concerne")
+    private List<NotificationItem> notificationItems;
+    @OneToMany(mappedBy = "liker")
+    private List<Aime> aimes;
+    @OneToMany(mappedBy = "user")
+    private List<Commentaire> commentaires;
+    @OneToMany(mappedBy = "demandeur")
+    private List<GroupeItem> groupeItems;
+    @OneToMany(mappedBy = "recepteur")
+    private List<MessageItem> messageItems;
+    @OneToMany(mappedBy = "emetteur")
+    private List<Message> messages;
+    @OneToMany(mappedBy = "recepteurPublicartion")
+    private List<Publication> publications;
+    
+    @OneToMany(mappedBy = "user")
+    private List<Photo> photos;
+    @OneToMany(mappedBy = "recepteur")
+    private List<Invitation> invitations;
+    @OneToMany(mappedBy = "bloque")
+    private List<Blocage> blocages;
+    @OneToMany(mappedBy = "user")
+    private List<EtablissementItem> etablissementItems;
+    @OneToMany(mappedBy = "user")
+    private List<EmploiItem> emploiItems;
+    
+    @OneToMany(mappedBy = "admin")
+    private List<GroupeAdmin> groupeAdmins;
+    @OneToMany(mappedBy = "user")
+    private List<Videos> videoss;
 
     public Date getDateSuppression() {
         return dateSuppression;
@@ -80,38 +135,7 @@ public class User implements Serializable {
     public void setVideoss(List<Videos> videoss) {
         this.videoss = videoss;
     }
-    @ManyToOne
-    private Lieu lieu;
-        @OneToMany(mappedBy = "concerne")
-    private List<NotificationItem> notificationItems;
-    @OneToMany(mappedBy = "liker")
-    private List<Aime> aimes;
-    @OneToMany(mappedBy = "user")
-    private List<Commentaire> commentaires;
-    @OneToMany(mappedBy = "demandeur")
-    private List<GroupeItem> groupeItems;
-    @OneToMany(mappedBy = "recepteur")
-    private List<MessageItem> messageItems;
-    @OneToMany(mappedBy = "emetteur")
-    private List<Message> messages;
-    @OneToMany(mappedBy = "recepteurPublicartion")
-    private List<Publication> publications;
     
-    @OneToMany(mappedBy = "user")
-    private List<Photo> photos;
-    @OneToMany(mappedBy = "recepteur")
-    private List<Invitation> invitations;
-    @OneToMany(mappedBy = "bloque")
-    private List<Blocage> blocages;
-    @OneToMany(mappedBy = "user")
-    private List<EtablissementItem> etablissementItems;
-    @OneToMany(mappedBy = "user")
-    private List<EmploiItem> emploiItems;
-    
-    @OneToMany(mappedBy = "admin")
-    private List<GroupeAdmin> groupeAdmins;
-    @OneToMany(mappedBy = "user")
-    private List<Videos> videoss;
     
 
     public List<GroupeAdmin> getGroupeAdmins() {
@@ -337,8 +361,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + '}';
+        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + ", adminatrateur=" + adminatrateur + ", manager=" +", droite"+droite + '}';
     }
+
+    
 
    
 

@@ -12,6 +12,8 @@
             <h:form id="SignalerCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{signalerController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSignalerLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{signalerController.selected.dateSuppression}" title="#{bundle.EditSignalerTitle_dateSuppression}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateSignalerLabel_cause}" for="cause" />
                         <p:inputText id="cause" value="#{signalerController.selected.cause}" title="#{bundle.CreateSignalerTitle_cause}" />
                         <p:outputLabel value="#{bundle.CreateSignalerLabel_userSignale}" for="userSignale" />

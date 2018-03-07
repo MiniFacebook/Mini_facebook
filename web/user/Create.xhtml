@@ -12,6 +12,10 @@
             <h:form id="UserCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUserLabel_droite}" for="droite" />
+                        <p:selectBooleanCheckbox id="droite" value="#{userController.selected.droite}" />
+                        <p:outputLabel value="#{bundle.CreateUserLabel_adminatrateur}" for="adminatrateur" />
+                        <p:selectBooleanCheckbox id="adminatrateur" value="#{userController.selected.adminatrateur}" />
                         <p:outputLabel value="#{bundle.CreateUserLabel_dateSuppression}" for="dateSuppression" />
                         <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{userController.selected.dateSuppression}" title="#{bundle.EditUserTitle_dateSuppression}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateUserLabel_dateModification}" for="dateModification" />

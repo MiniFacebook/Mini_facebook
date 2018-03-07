@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("blocageController")
 @SessionScoped
 public class BlocageController implements Serializable {
 
-    @EJB
-    private sevice.BlocageFacade ejbFacade;
+
+    @EJB private sevice.BlocageFacade ejbFacade;
     private List<Blocage> items = null;
     private Blocage selected;
 
@@ -121,7 +122,7 @@ public class BlocageController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Blocage.class)
+    @FacesConverter(forClass=Blocage.class)
     public static class BlocageControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class BlocageController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BlocageController controller = (BlocageController) facesContext.getApplication().getELResolver().
+            BlocageController controller = (BlocageController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "blocageController");
             return controller.getBlocage(getKey(value));
         }

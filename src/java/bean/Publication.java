@@ -41,8 +41,65 @@ public class Publication implements Serializable {
     private User emetteurPublicartion;
     @ManyToOne
     private Groupe groupe;
+    private Boolean droite;
+     @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateModification;
+    private Long code; 
+    private Boolean undo;
     @OneToMany(mappedBy = "publicationSignale")
     private List<Signaler> signalers;
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
+
+    public Date getDateModification() {
+        return dateModification;
+    }
+
+    public void setDateModification(Date dateModification) {
+        this.dateModification = dateModification;
+    }
+
+    public Long getCode() {
+        return code;
+    }
+
+    public void setCode(Long code) {
+        this.code = code;
+    }
+
+    public Boolean getUndo() {
+        return undo;
+    }
+
+    public void setUndo(Boolean undo) {
+        this.undo = undo;
+    }
+    
+
+    public Boolean getDroite() {
+        return droite;
+    }
+
+    public void setDroite(Boolean droite) {
+        this.droite = droite;
+    }
+
+    public List<Signaler> getSignalers() {
+        return signalers;
+    }
+
+    public void setSignalers(List<Signaler> signalers) {
+        this.signalers = signalers;
+    }
+    
 
     public Publication() {
     }
@@ -146,8 +203,10 @@ public class Publication implements Serializable {
 
     @Override
     public String toString() {
-        return "Publication{" + "id=" + id + ", datePublication=" + datePublication + ", texte=" + texte + '}';
+        return "Publication{" + "id=" + id + ", datePublication=" + datePublication + ", texte=" + texte + ", droite=" + droite + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + '}';
     }
+
+   
 
    
     

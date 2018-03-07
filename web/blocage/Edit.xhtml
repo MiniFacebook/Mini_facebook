@@ -12,6 +12,8 @@
             <h:form id="BlocageEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{blocageController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBlocageLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{blocageController.selected.dateSuppression}" title="#{bundle.EditBlocageTitle_dateSuppression}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBlocageLabel_dateBlocage}" for="dateBlocage" />
                         <p:calendar id="dateBlocage" pattern="MM/dd/yyyy" value="#{blocageController.selected.dateBlocage}" title="#{bundle.EditBlocageTitle_dateBlocage}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBlocageLabel_bloque}" for="bloque" />

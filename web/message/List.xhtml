@@ -29,6 +29,34 @@
 
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_dateSuppression}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateSuppression}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_dateModification}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateModification}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_code}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.code}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMessageTitle_undo}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.undo}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMessageTitle_dateEnvoi}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateEnvoi}">

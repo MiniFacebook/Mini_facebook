@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("commentaireController")
 @SessionScoped
 public class CommentaireController implements Serializable {
 
-    @EJB
-    private sevice.CommentaireFacade ejbFacade;
+
+    @EJB private sevice.CommentaireFacade ejbFacade;
     private List<Commentaire> items = null;
     private Commentaire selected;
 
@@ -121,7 +122,7 @@ public class CommentaireController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Commentaire.class)
+    @FacesConverter(forClass=Commentaire.class)
     public static class CommentaireControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class CommentaireController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CommentaireController controller = (CommentaireController) facesContext.getApplication().getELResolver().
+            CommentaireController controller = (CommentaireController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "commentaireController");
             return controller.getCommentaire(getKey(value));
         }

@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("videosController")
 @SessionScoped
 public class VideosController implements Serializable {
 
-    @EJB
-    private sevice.VideosFacade ejbFacade;
+
+    @EJB private sevice.VideosFacade ejbFacade;
     private List<Videos> items = null;
     private Videos selected;
 
@@ -121,7 +122,7 @@ public class VideosController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Videos.class)
+    @FacesConverter(forClass=Videos.class)
     public static class VideosControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class VideosController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            VideosController controller = (VideosController) facesContext.getApplication().getELResolver().
+            VideosController controller = (VideosController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "videosController");
             return controller.getVideos(getKey(value));
         }

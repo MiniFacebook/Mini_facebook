@@ -19,12 +19,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 @Named("messageController")
 @SessionScoped
 public class MessageController implements Serializable {
 
-    @EJB
-    private sevice.MessageFacade ejbFacade;
+
+    @EJB private sevice.MessageFacade ejbFacade;
     private List<Message> items = null;
     private Message selected;
 
@@ -121,7 +122,7 @@ public class MessageController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Message.class)
+    @FacesConverter(forClass=Message.class)
     public static class MessageControllerConverter implements Converter {
 
         @Override
@@ -129,7 +130,7 @@ public class MessageController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            MessageController controller = (MessageController) facesContext.getApplication().getELResolver().
+            MessageController controller = (MessageController)facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "messageController");
             return controller.getMessage(getKey(value));
         }

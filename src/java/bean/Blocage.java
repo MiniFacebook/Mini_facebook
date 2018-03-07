@@ -30,6 +30,17 @@ public class Blocage implements Serializable {
     private User bloque;
     @ManyToOne
     private User bloqueur;
+     @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateSuppression;
+
+    public Date getDateSuppression() {
+        return dateSuppression;
+    }
+
+    public void setDateSuppression(Date dateSuppression) {
+        this.dateSuppression = dateSuppression;
+    }
+   
 
     public Blocage() {
     }
@@ -94,8 +105,10 @@ public class Blocage implements Serializable {
 
     @Override
     public String toString() {
-        return "Blocage{" + "id=" + id + ", dateBlocage=" + dateBlocage + '}';
+        return "Blocage{" + "id=" + id + ", dateBlocage=" + dateBlocage + ", dateSuppression=" + dateSuppression + '}';
     }
+
+    
 
   
     

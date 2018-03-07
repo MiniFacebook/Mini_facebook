@@ -12,6 +12,10 @@
             <h:form id="BlocageViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{blocageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBlocageLabel_dateSuppression}"/>
+                        <h:outputText value="#{blocageController.selected.dateSuppression}" title="#{bundle.ViewBlocageTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewBlocageLabel_dateBlocage}"/>
                         <h:outputText value="#{blocageController.selected.dateBlocage}" title="#{bundle.ViewBlocageTitle_dateBlocage}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

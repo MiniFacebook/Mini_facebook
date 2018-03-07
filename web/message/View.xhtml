@@ -12,6 +12,18 @@
             <h:form id="MessageViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{messageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewMessageLabel_dateSuppression}"/>
+                        <h:outputText value="#{messageController.selected.dateSuppression}" title="#{bundle.ViewMessageTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMessageLabel_dateModification}"/>
+                        <h:outputText value="#{messageController.selected.dateModification}" title="#{bundle.ViewMessageTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewMessageLabel_code}"/>
+                        <h:outputText value="#{messageController.selected.code}" title="#{bundle.ViewMessageTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewMessageLabel_undo}"/>
+                        <p:selectBooleanCheckbox value="#{messageController.selected.undo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewMessageLabel_dateEnvoi}"/>
                         <h:outputText value="#{messageController.selected.dateEnvoi}" title="#{bundle.ViewMessageTitle_dateEnvoi}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

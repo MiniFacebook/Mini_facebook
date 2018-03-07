@@ -12,6 +12,10 @@
             <h:form id="UserViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUserLabel_droite}"/>
+                        <p:selectBooleanCheckbox value="#{userController.selected.droite}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewUserLabel_adminatrateur}"/>
+                        <p:selectBooleanCheckbox value="#{userController.selected.adminatrateur}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewUserLabel_dateSuppression}"/>
                         <h:outputText value="#{userController.selected.dateSuppression}" title="#{bundle.ViewUserTitle_dateSuppression}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />
