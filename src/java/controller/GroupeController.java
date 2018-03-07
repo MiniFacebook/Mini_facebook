@@ -3,7 +3,7 @@ package controller;
 import bean.Groupe;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.GroupeFacade;
+import sevice.GroupeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "groupeController")
+@Named("groupeController")
 @SessionScoped
 public class GroupeController implements Serializable {
 
     @EJB
-    private service.GroupeFacade ejbFacade;
+    private sevice.GroupeFacade ejbFacade;
     private List<Groupe> items = null;
     private Groupe selected;
 
@@ -32,9 +32,6 @@ public class GroupeController implements Serializable {
     }
 
     public Groupe getSelected() {
-         if (selected == null) {
-            selected = new Groupe();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class GroupeController implements Serializable {
         }
     }
 
+    public Groupe getGroupe(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Groupe> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class GroupeController implements Serializable {
             }
             GroupeController controller = (GroupeController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupeController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getGroupe(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

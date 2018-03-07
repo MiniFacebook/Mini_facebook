@@ -14,6 +14,20 @@
                     <p:panelGrid columns="2" rendered="#{signalerItemController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateSignalerItemLabel_id}" for="id" />
                         <p:inputText id="id" value="#{signalerItemController.selected.id}" title="#{bundle.CreateSignalerItemTitle_id}" />
+                        <p:outputLabel value="#{bundle.CreateSignalerItemLabel_dateSignaler}" for="dateSignaler" />
+                        <p:calendar id="dateSignaler" pattern="MM/dd/yyyy" value="#{signalerItemController.selected.dateSignaler}" title="#{bundle.EditSignalerItemTitle_dateSignaler}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateSignalerItemLabel_userAction}" for="userAction" />
+                        <p:selectOneMenu id="userAction" value="#{signalerItemController.selected.userAction}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userActionItem"
+                                           itemValue="#{userActionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSignalerItemLabel_signaler}" for="signaler" />
+                        <p:selectOneMenu id="signaler" value="#{signalerItemController.selected.signaler}" >
+                            <f:selectItems value="#{signalerController.itemsAvailableSelectOne}"
+                                           var="signalerItem"
+                                           itemValue="#{signalerItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{signalerItemController.create}" value="#{bundle.Save}" update="display,:SignalerItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'SignalerItemCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="SignalerItemCreateDialog.hide()"/>

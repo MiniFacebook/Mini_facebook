@@ -3,7 +3,7 @@ package controller;
 import bean.Photo;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.PhotoFacade;
+import sevice.PhotoFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "photoController")
+@Named("photoController")
 @SessionScoped
 public class PhotoController implements Serializable {
 
     @EJB
-    private service.PhotoFacade ejbFacade;
+    private sevice.PhotoFacade ejbFacade;
     private List<Photo> items = null;
     private Photo selected;
 
@@ -32,9 +32,6 @@ public class PhotoController implements Serializable {
     }
 
     public Photo getSelected() {
-         if (selected == null) {
-            selected = new Photo();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class PhotoController implements Serializable {
         }
     }
 
+    public Photo getPhoto(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Photo> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class PhotoController implements Serializable {
             }
             PhotoController controller = (PhotoController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "photoController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getPhoto(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

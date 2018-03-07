@@ -3,7 +3,7 @@ package controller;
 import bean.EtablissementItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.EtablissementItemFacade;
+import sevice.EtablissementItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "etablissementItemController")
+@Named("etablissementItemController")
 @SessionScoped
 public class EtablissementItemController implements Serializable {
 
     @EJB
-    private service.EtablissementItemFacade ejbFacade;
+    private sevice.EtablissementItemFacade ejbFacade;
     private List<EtablissementItem> items = null;
     private EtablissementItem selected;
 
@@ -32,10 +32,6 @@ public class EtablissementItemController implements Serializable {
     }
 
     public EtablissementItem getSelected() {
-        
-         if (selected == null) {
-            selected = new EtablissementItem();
-        }
         return selected;
     }
 
@@ -113,6 +109,10 @@ public class EtablissementItemController implements Serializable {
         }
     }
 
+    public EtablissementItem getEtablissementItem(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<EtablissementItem> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -131,7 +131,7 @@ public class EtablissementItemController implements Serializable {
             }
             EtablissementItemController controller = (EtablissementItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "etablissementItemController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getEtablissementItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

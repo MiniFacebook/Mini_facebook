@@ -14,6 +14,14 @@
                     <p:panelGrid columns="2" rendered="#{signalerItemController.selected != null}">
                         <h:outputText value="#{bundle.ViewSignalerItemLabel_id}"/>
                         <h:outputText value="#{signalerItemController.selected.id}" title="#{bundle.ViewSignalerItemTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewSignalerItemLabel_dateSignaler}"/>
+                        <h:outputText value="#{signalerItemController.selected.dateSignaler}" title="#{bundle.ViewSignalerItemTitle_dateSignaler}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewSignalerItemLabel_userAction}"/>
+                        <h:outputText value="#{signalerItemController.selected.userAction}" title="#{bundle.ViewSignalerItemTitle_userAction}"/>
+                        <h:outputText value="#{bundle.ViewSignalerItemLabel_signaler}"/>
+                        <h:outputText value="#{signalerItemController.selected.signaler}" title="#{bundle.ViewSignalerItemTitle_signaler}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="SignalerItemViewDialog.hide()"/>
                 </h:panelGroup>

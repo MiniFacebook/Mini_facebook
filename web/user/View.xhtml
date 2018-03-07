@@ -12,6 +12,18 @@
             <h:form id="UserViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{userController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUserLabel_dateSuppression}"/>
+                        <h:outputText value="#{userController.selected.dateSuppression}" title="#{bundle.ViewUserTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewUserLabel_dateModification}"/>
+                        <h:outputText value="#{userController.selected.dateModification}" title="#{bundle.ViewUserTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewUserLabel_code}"/>
+                        <h:outputText value="#{userController.selected.code}" title="#{bundle.ViewUserTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewUserLabel_undo}"/>
+                        <p:selectBooleanCheckbox value="#{userController.selected.undo}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewUserLabel_password}"/>
                         <h:outputText value="#{userController.selected.password}" title="#{bundle.ViewUserTitle_password}"/>
                         <h:outputText value="#{bundle.ViewUserLabel_nom}"/>

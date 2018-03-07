@@ -12,6 +12,16 @@
             <h:form id="AimeViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{aimeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAimeLabel_code}"/>
+                        <h:outputText value="#{aimeController.selected.code}" title="#{bundle.ViewAimeTitle_code}"/>
+                        <h:outputText value="#{bundle.ViewAimeLabel_dateSuppression}"/>
+                        <h:outputText value="#{aimeController.selected.dateSuppression}" title="#{bundle.ViewAimeTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewAimeLabel_dateModification}"/>
+                        <h:outputText value="#{aimeController.selected.dateModification}" title="#{bundle.ViewAimeTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
                         <h:outputText value="#{bundle.ViewAimeLabel_dateAime}"/>
                         <h:outputText value="#{aimeController.selected.dateAime}" title="#{bundle.ViewAimeTitle_dateAime}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

@@ -3,7 +3,7 @@ package controller;
 import bean.Notification;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.NotificationFacade;
+import sevice.NotificationFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "notificationController")
+@Named("notificationController")
 @SessionScoped
 public class NotificationController implements Serializable {
 
     @EJB
-    private service.NotificationFacade ejbFacade;
+    private sevice.NotificationFacade ejbFacade;
     private List<Notification> items = null;
     private Notification selected;
 
@@ -32,9 +32,6 @@ public class NotificationController implements Serializable {
     }
 
     public Notification getSelected() {
-         if (selected == null) {
-            selected = new Notification();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class NotificationController implements Serializable {
         }
     }
 
+    public Notification getNotification(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Notification> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class NotificationController implements Serializable {
             }
             NotificationController controller = (NotificationController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "notificationController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getNotification(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

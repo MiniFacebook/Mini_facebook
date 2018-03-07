@@ -3,7 +3,7 @@ package controller;
 import bean.Aime;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.AimeFacade;
+import sevice.AimeFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "aimeController")
+@Named("aimeController")
 @SessionScoped
 public class AimeController implements Serializable {
 
     @EJB
-    private service.AimeFacade ejbFacade;
+    private sevice.AimeFacade ejbFacade;
     private List<Aime> items = null;
     private Aime selected;
 
@@ -32,9 +32,6 @@ public class AimeController implements Serializable {
     }
 
     public Aime getSelected() {
-        if (selected == null) {
-            selected = new Aime();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class AimeController implements Serializable {
         }
     }
 
+    public Aime getAime(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Aime> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class AimeController implements Serializable {
             }
             AimeController controller = (AimeController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "aimeController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getAime(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

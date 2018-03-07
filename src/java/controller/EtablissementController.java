@@ -3,7 +3,7 @@ package controller;
 import bean.Etablissement;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.EtablissementFacade;
+import sevice.EtablissementFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "etablissementController")
+@Named("etablissementController")
 @SessionScoped
 public class EtablissementController implements Serializable {
 
     @EJB
-    private service.EtablissementFacade ejbFacade;
+    private sevice.EtablissementFacade ejbFacade;
     private List<Etablissement> items = null;
     private Etablissement selected;
 
@@ -32,9 +32,6 @@ public class EtablissementController implements Serializable {
     }
 
     public Etablissement getSelected() {
-         if (selected == null) {
-            selected = new Etablissement();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class EtablissementController implements Serializable {
         }
     }
 
+    public Etablissement getEtablissement(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Etablissement> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class EtablissementController implements Serializable {
             }
             EtablissementController controller = (EtablissementController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "etablissementController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getEtablissement(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

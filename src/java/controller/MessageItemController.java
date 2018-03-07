@@ -3,7 +3,7 @@ package controller;
 import bean.MessageItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.MessageItemFacade;
+import sevice.MessageItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "messageItemController")
+@Named("messageItemController")
 @SessionScoped
 public class MessageItemController implements Serializable {
 
     @EJB
-    private service.MessageItemFacade ejbFacade;
+    private sevice.MessageItemFacade ejbFacade;
     private List<MessageItem> items = null;
     private MessageItem selected;
 
@@ -32,9 +32,6 @@ public class MessageItemController implements Serializable {
     }
 
     public MessageItem getSelected() {
-         if (selected == null) {
-            selected = new MessageItem();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class MessageItemController implements Serializable {
         }
     }
 
+    public MessageItem getMessageItem(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<MessageItem> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class MessageItemController implements Serializable {
             }
             MessageItemController controller = (MessageItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "messageItemController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getMessageItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

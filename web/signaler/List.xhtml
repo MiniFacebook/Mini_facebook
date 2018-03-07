@@ -29,6 +29,24 @@
 
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerTitle_cause}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cause}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerTitle_userSignale}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userSignale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerTitle_publicationSignale}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.publicationSignale}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListSignalerTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>

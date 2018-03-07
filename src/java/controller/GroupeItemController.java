@@ -3,7 +3,7 @@ package controller;
 import bean.GroupeItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.GroupeItemFacade;
+import sevice.GroupeItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "groupeItemController")
+@Named("groupeItemController")
 @SessionScoped
 public class GroupeItemController implements Serializable {
 
     @EJB
-    private service.GroupeItemFacade ejbFacade;
+    private sevice.GroupeItemFacade ejbFacade;
     private List<GroupeItem> items = null;
     private GroupeItem selected;
 
@@ -32,9 +32,6 @@ public class GroupeItemController implements Serializable {
     }
 
     public GroupeItem getSelected() {
-         if (selected == null) {
-            selected = new GroupeItem();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class GroupeItemController implements Serializable {
         }
     }
 
+    public GroupeItem getGroupeItem(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<GroupeItem> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class GroupeItemController implements Serializable {
             }
             GroupeItemController controller = (GroupeItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "groupeItemController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getGroupeItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

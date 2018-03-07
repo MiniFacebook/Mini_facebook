@@ -33,6 +33,26 @@
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerItemTitle_dateSignaler}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateSignaler}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerItemTitle_userAction}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userAction}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSignalerItemTitle_signaler}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.signaler}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{signalerItemController.prepareCreate}" update=":SignalerItemCreateForm" oncomplete="PF('SignalerItemCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SignalerItemViewForm" oncomplete="PF('SignalerItemViewDialog').show()" disabled="#{empty signalerItemController.selected}"/>

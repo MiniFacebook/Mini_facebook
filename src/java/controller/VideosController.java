@@ -3,7 +3,7 @@ package controller;
 import bean.Videos;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.VideosFacade;
+import sevice.VideosFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "videosController")
+@Named("videosController")
 @SessionScoped
 public class VideosController implements Serializable {
 
     @EJB
-    private service.VideosFacade ejbFacade;
+    private sevice.VideosFacade ejbFacade;
     private List<Videos> items = null;
     private Videos selected;
 
@@ -32,9 +32,6 @@ public class VideosController implements Serializable {
     }
 
     public Videos getSelected() {
-         if (selected == null) {
-            selected = new Videos();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class VideosController implements Serializable {
         }
     }
 
+    public Videos getVideos(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Videos> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class VideosController implements Serializable {
             }
             VideosController controller = (VideosController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "videosController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getVideos(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

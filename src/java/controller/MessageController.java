@@ -3,7 +3,7 @@ package controller;
 import bean.Message;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.MessageFacade;
+import sevice.MessageFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "messageController")
+@Named("messageController")
 @SessionScoped
 public class MessageController implements Serializable {
 
     @EJB
-    private service.MessageFacade ejbFacade;
+    private sevice.MessageFacade ejbFacade;
     private List<Message> items = null;
     private Message selected;
 
@@ -32,9 +32,6 @@ public class MessageController implements Serializable {
     }
 
     public Message getSelected() {
-         if (selected == null) {
-            selected = new Message();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class MessageController implements Serializable {
         }
     }
 
+    public Message getMessage(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Message> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class MessageController implements Serializable {
             }
             MessageController controller = (MessageController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "messageController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getMessage(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

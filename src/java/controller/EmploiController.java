@@ -3,7 +3,7 @@ package controller;
 import bean.Emploi;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.EmploiFacade;
+import sevice.EmploiFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "emploiController")
+@Named("emploiController")
 @SessionScoped
 public class EmploiController implements Serializable {
 
     @EJB
-    private service.EmploiFacade ejbFacade;
+    private sevice.EmploiFacade ejbFacade;
     private List<Emploi> items = null;
     private Emploi selected;
 
@@ -32,9 +32,6 @@ public class EmploiController implements Serializable {
     }
 
     public Emploi getSelected() {
- if (selected == null) {
-            selected = new Emploi();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class EmploiController implements Serializable {
         }
     }
 
+    public Emploi getEmploi(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Emploi> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class EmploiController implements Serializable {
             }
             EmploiController controller = (EmploiController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "emploiController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getEmploi(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

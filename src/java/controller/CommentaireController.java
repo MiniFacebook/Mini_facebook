@@ -3,7 +3,7 @@ package controller;
 import bean.Commentaire;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.CommentaireFacade;
+import sevice.CommentaireFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "commentaireController")
+@Named("commentaireController")
 @SessionScoped
 public class CommentaireController implements Serializable {
 
     @EJB
-    private service.CommentaireFacade ejbFacade;
+    private sevice.CommentaireFacade ejbFacade;
     private List<Commentaire> items = null;
     private Commentaire selected;
 
@@ -32,9 +32,6 @@ public class CommentaireController implements Serializable {
     }
 
     public Commentaire getSelected() {
-        if (selected == null) {
-            selected = new Commentaire();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class CommentaireController implements Serializable {
         }
     }
 
+    public Commentaire getCommentaire(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Commentaire> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class CommentaireController implements Serializable {
             }
             CommentaireController controller = (CommentaireController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "commentaireController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getCommentaire(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

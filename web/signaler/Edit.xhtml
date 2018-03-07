@@ -12,6 +12,22 @@
             <h:form id="SignalerEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{signalerController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditSignalerLabel_cause}" for="cause" />
+                        <p:inputText id="cause" value="#{signalerController.selected.cause}" title="#{bundle.EditSignalerTitle_cause}" />
+                        <p:outputLabel value="#{bundle.EditSignalerLabel_userSignale}" for="userSignale" />
+                        <p:selectOneMenu id="userSignale" value="#{signalerController.selected.userSignale}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userSignaleItem"
+                                           itemValue="#{userSignaleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditSignalerLabel_publicationSignale}" for="publicationSignale" />
+                        <p:selectOneMenu id="publicationSignale" value="#{signalerController.selected.publicationSignale}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
+                                           var="publicationSignaleItem"
+                                           itemValue="#{publicationSignaleItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditSignalerLabel_id}" for="id" />
                         <p:inputText id="id" value="#{signalerController.selected.id}" title="#{bundle.EditSignalerTitle_id}" />
                     </p:panelGrid>

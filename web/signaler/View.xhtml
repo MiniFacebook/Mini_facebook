@@ -12,6 +12,12 @@
             <h:form id="SignalerViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{signalerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewSignalerLabel_cause}"/>
+                        <h:outputText value="#{signalerController.selected.cause}" title="#{bundle.ViewSignalerTitle_cause}"/>
+                        <h:outputText value="#{bundle.ViewSignalerLabel_userSignale}"/>
+                        <h:outputText value="#{signalerController.selected.userSignale}" title="#{bundle.ViewSignalerTitle_userSignale}"/>
+                        <h:outputText value="#{bundle.ViewSignalerLabel_publicationSignale}"/>
+                        <h:outputText value="#{signalerController.selected.publicationSignale}" title="#{bundle.ViewSignalerTitle_publicationSignale}"/>
                         <h:outputText value="#{bundle.ViewSignalerLabel_id}"/>
                         <h:outputText value="#{signalerController.selected.id}" title="#{bundle.ViewSignalerTitle_id}"/>
                     </p:panelGrid>

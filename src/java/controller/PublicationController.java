@@ -3,7 +3,7 @@ package controller;
 import bean.Publication;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.PublicationFacade;
+import sevice.PublicationFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "publicationController")
+@Named("publicationController")
 @SessionScoped
 public class PublicationController implements Serializable {
 
     @EJB
-    private service.PublicationFacade ejbFacade;
+    private sevice.PublicationFacade ejbFacade;
     private List<Publication> items = null;
     private Publication selected;
 
@@ -32,9 +32,6 @@ public class PublicationController implements Serializable {
     }
 
     public Publication getSelected() {
-         if (selected == null) {
-            selected = new Publication();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class PublicationController implements Serializable {
         }
     }
 
+    public Publication getPublication(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Publication> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class PublicationController implements Serializable {
             }
             PublicationController controller = (PublicationController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "publicationController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getPublication(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

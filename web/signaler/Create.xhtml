@@ -12,6 +12,20 @@
             <h:form id="SignalerCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{signalerController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSignalerLabel_cause}" for="cause" />
+                        <p:inputText id="cause" value="#{signalerController.selected.cause}" title="#{bundle.CreateSignalerTitle_cause}" />
+                        <p:outputLabel value="#{bundle.CreateSignalerLabel_userSignale}" for="userSignale" />
+                        <p:selectOneMenu id="userSignale" value="#{signalerController.selected.userSignale}" >
+                            <f:selectItems value="#{userController.itemsAvailableSelectOne}"
+                                           var="userSignaleItem"
+                                           itemValue="#{userSignaleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateSignalerLabel_publicationSignale}" for="publicationSignale" />
+                        <p:selectOneMenu id="publicationSignale" value="#{signalerController.selected.publicationSignale}" >
+                            <f:selectItems value="#{publicationController.itemsAvailableSelectOne}"
+                                           var="publicationSignaleItem"
+                                           itemValue="#{publicationSignaleItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateSignalerLabel_id}" for="id" />
                         <p:inputText id="id" value="#{signalerController.selected.id}" title="#{bundle.CreateSignalerTitle_id}" />
                     </p:panelGrid>

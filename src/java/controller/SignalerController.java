@@ -3,7 +3,7 @@ package controller;
 import bean.Signaler;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.SignalerFacade;
+import sevice.SignalerFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "signalerController")
+@Named("signalerController")
 @SessionScoped
 public class SignalerController implements Serializable {
 
     @EJB
-    private service.SignalerFacade ejbFacade;
+    private sevice.SignalerFacade ejbFacade;
     private List<Signaler> items = null;
     private Signaler selected;
 
@@ -32,9 +32,6 @@ public class SignalerController implements Serializable {
     }
 
     public Signaler getSelected() {
-         if (selected == null) {
-            selected = new Signaler();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class SignalerController implements Serializable {
         }
     }
 
+    public Signaler getSignaler(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Signaler> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class SignalerController implements Serializable {
             }
             SignalerController controller = (SignalerController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "signalerController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getSignaler(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

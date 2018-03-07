@@ -3,7 +3,7 @@ package controller;
 import bean.Lieu;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.LieuFacade;
+import sevice.LieuFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "lieuController")
+@Named("lieuController")
 @SessionScoped
 public class LieuController implements Serializable {
 
     @EJB
-    private service.LieuFacade ejbFacade;
+    private sevice.LieuFacade ejbFacade;
     private List<Lieu> items = null;
     private Lieu selected;
 
@@ -32,10 +32,6 @@ public class LieuController implements Serializable {
     }
 
     public Lieu getSelected() {
-        
-         if (selected == null) {
-            selected = new Lieu();
-        }
         return selected;
     }
 
@@ -113,6 +109,10 @@ public class LieuController implements Serializable {
         }
     }
 
+    public Lieu getLieu(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Lieu> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -131,7 +131,7 @@ public class LieuController implements Serializable {
             }
             LieuController controller = (LieuController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "lieuController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getLieu(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

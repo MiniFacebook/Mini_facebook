@@ -3,7 +3,7 @@ package controller;
 import bean.SignalerItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.SignalerItemFacade;
+import sevice.SignalerItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "signalerItemController")
+@Named("signalerItemController")
 @SessionScoped
 public class SignalerItemController implements Serializable {
 
     @EJB
-    private service.SignalerItemFacade ejbFacade;
+    private sevice.SignalerItemFacade ejbFacade;
     private List<SignalerItem> items = null;
     private SignalerItem selected;
 
@@ -32,9 +32,6 @@ public class SignalerItemController implements Serializable {
     }
 
     public SignalerItem getSelected() {
-         if (selected == null) {
-            selected = new SignalerItem();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class SignalerItemController implements Serializable {
         }
     }
 
+    public SignalerItem getSignalerItem(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<SignalerItem> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class SignalerItemController implements Serializable {
             }
             SignalerItemController controller = (SignalerItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "signalerItemController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getSignalerItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

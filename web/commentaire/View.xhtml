@@ -12,6 +12,18 @@
             <h:form id="CommentaireViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{commentaireController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCommentaireLabel_undo}"/>
+                        <p:selectBooleanCheckbox value="#{commentaireController.selected.undo}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewCommentaireLabel_dateSuppression}"/>
+                        <h:outputText value="#{commentaireController.selected.dateSuppression}" title="#{bundle.ViewCommentaireTitle_dateSuppression}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCommentaireLabel_dateModification}"/>
+                        <h:outputText value="#{commentaireController.selected.dateModification}" title="#{bundle.ViewCommentaireTitle_dateModification}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewCommentaireLabel_code}"/>
+                        <h:outputText value="#{commentaireController.selected.code}" title="#{bundle.ViewCommentaireTitle_code}"/>
                         <h:outputText value="#{bundle.ViewCommentaireLabel_id}"/>
                         <h:outputText value="#{commentaireController.selected.id}" title="#{bundle.ViewCommentaireTitle_id}"/>
                         <h:outputText value="#{bundle.ViewCommentaireLabel_texte}"/>

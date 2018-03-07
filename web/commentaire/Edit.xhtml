@@ -12,6 +12,14 @@
             <h:form id="CommentaireEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{commentaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_undo}" for="undo" />
+                        <p:selectBooleanCheckbox id="undo" value="#{commentaireController.selected.undo}" />
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_dateSuppression}" for="dateSuppression" />
+                        <p:calendar id="dateSuppression" pattern="MM/dd/yyyy" value="#{commentaireController.selected.dateSuppression}" title="#{bundle.EditCommentaireTitle_dateSuppression}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_dateModification}" for="dateModification" />
+                        <p:calendar id="dateModification" pattern="MM/dd/yyyy" value="#{commentaireController.selected.dateModification}" title="#{bundle.EditCommentaireTitle_dateModification}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCommentaireLabel_code}" for="code" />
+                        <p:inputText id="code" value="#{commentaireController.selected.code}" title="#{bundle.EditCommentaireTitle_code}" />
                         <p:outputLabel value="#{bundle.EditCommentaireLabel_id}" for="id" />
                         <p:inputText id="id" value="#{commentaireController.selected.id}" title="#{bundle.EditCommentaireTitle_id}" />
                         <p:outputLabel value="#{bundle.EditCommentaireLabel_texte}" for="texte" />

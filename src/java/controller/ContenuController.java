@@ -3,7 +3,7 @@ package controller;
 import bean.Contenu;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.ContenuFacade;
+import sevice.ContenuFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "contenuController")
+@Named("contenuController")
 @SessionScoped
 public class ContenuController implements Serializable {
 
     @EJB
-    private service.ContenuFacade ejbFacade;
+    private sevice.ContenuFacade ejbFacade;
     private List<Contenu> items = null;
     private Contenu selected;
 
@@ -32,9 +32,6 @@ public class ContenuController implements Serializable {
     }
 
     public Contenu getSelected() {
-        if (selected == null) {
-            selected = new Contenu();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class ContenuController implements Serializable {
         }
     }
 
+    public Contenu getContenu(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<Contenu> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class ContenuController implements Serializable {
             }
             ContenuController controller = (ContenuController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "contenuController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getContenu(getKey(value));
         }
 
         java.lang.Long getKey(String value) {

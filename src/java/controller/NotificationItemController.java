@@ -3,7 +3,7 @@ package controller;
 import bean.NotificationItem;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
-import service.NotificationItemFacade;
+import sevice.NotificationItemFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@ManagedBean(name = "notificationItemController")
+@Named("notificationItemController")
 @SessionScoped
 public class NotificationItemController implements Serializable {
 
     @EJB
-    private service.NotificationItemFacade ejbFacade;
+    private sevice.NotificationItemFacade ejbFacade;
     private List<NotificationItem> items = null;
     private NotificationItem selected;
 
@@ -32,9 +32,6 @@ public class NotificationItemController implements Serializable {
     }
 
     public NotificationItem getSelected() {
-         if (selected == null) {
-            selected = new NotificationItem();
-        }
         return selected;
     }
 
@@ -112,6 +109,10 @@ public class NotificationItemController implements Serializable {
         }
     }
 
+    public NotificationItem getNotificationItem(java.lang.Long id) {
+        return getFacade().find(id);
+    }
+
     public List<NotificationItem> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
@@ -130,7 +131,7 @@ public class NotificationItemController implements Serializable {
             }
             NotificationItemController controller = (NotificationItemController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "notificationItemController");
-            return controller.getFacade().find(getKey(value));
+            return controller.getNotificationItem(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
