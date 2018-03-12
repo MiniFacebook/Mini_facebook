@@ -39,7 +39,7 @@ public class Message implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateModification;
     private Long code; 
-    private Boolean undo;
+    private Boolean returnBack;
 
     public Date getDateSuppression() {
         return dateSuppression;
@@ -65,12 +65,12 @@ public class Message implements Serializable {
         this.code = code;
     }
 
-    public Boolean getUndo() {
-        return undo;
+    public Boolean getreturnBack() {
+        return returnBack;
     }
 
-    public void setUndo(Boolean undo) {
-        this.undo = undo;
+    public void setreturnBack(Boolean returnBack) {
+        this.returnBack = returnBack;
     }
 
     public List<Contenu> getContenus() {
@@ -151,7 +151,7 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" + "id=" + id + ", dateEnvoi=" + dateEnvoi + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + ", texte=" + texte + '}';
+        return "Message{" + "id=" + id + ", dateEnvoi=" + dateEnvoi + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", returnBack=" + returnBack + ", texte=" + texte + '}';
     }
 
    

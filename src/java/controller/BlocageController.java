@@ -1,6 +1,7 @@
 package controller;
 
 import bean.Blocage;
+import bean.User;
 import controller.util.JsfUtil;
 import controller.util.JsfUtil.PersistAction;
 import service.BlocageFacade;
@@ -32,6 +33,9 @@ public class BlocageController implements Serializable {
     }
 
     public Blocage getSelected() {
+         if( selected== null){
+        selected= new Blocage();
+        }
         return selected;
     }
 

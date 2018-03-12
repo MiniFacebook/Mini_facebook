@@ -22,7 +22,7 @@ public class Contenu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String texte;
+   
     private String extension;
     private String chemin;
     @ManyToOne
@@ -37,15 +37,6 @@ public class Contenu implements Serializable {
 
     public Contenu(Long id) {
         this.id = id;
-    }
-    
-
-    public String getTexte() {
-        return texte;
-    }
-
-    public void setTexte(String texte) {
-        this.texte = texte;
     }
 
     public String getExtension() {
@@ -120,7 +111,7 @@ public class Contenu implements Serializable {
 
     @Override
     public String toString() {
-        return "Contenu{" + "id=" + id + ", texte=" + texte + ", extension=" + extension + ", chemin=" + chemin + '}';
+        return "Contenu{" + "id=" + id + ", extension=" + extension + ", chemin=" + chemin + '}';
     }
 
   

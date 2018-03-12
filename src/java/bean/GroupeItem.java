@@ -33,16 +33,8 @@ public class GroupeItem implements Serializable {
     
     @ManyToOne
     private Groupe groupe;
-    @OneToMany(mappedBy = "groupeItem")
-    private List<Invitation> invitations;
-
-    public List<Invitation> getInvitations() {
-        return invitations;
-    }
-
-    public void setInvitations(List<Invitation> invitations) {
-        this.invitations = invitations;
-    }
+  
+  
     
 
     public Date getDateIntegration() {

@@ -37,14 +37,14 @@ public class Commentaire implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateModification;
     private Long code;
-    private Boolean undo;
+    private Boolean returnBack;
 
-    public Boolean getUndo() {
-        return undo;
+    public Boolean getreturnBack() {
+        return returnBack;
     }
 
-    public void setUndo(Boolean undo) {
-        this.undo = undo;
+    public void setreturnBack(Boolean returnBack) {
+        this.returnBack = returnBack;
     }
 
     public Date getDateSuppression() {

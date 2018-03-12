@@ -32,6 +32,9 @@ public class VideosController implements Serializable {
     }
 
     public Videos getSelected() {
+         if( selected== null){
+        selected= new Videos();
+        }
         return selected;
     }
 

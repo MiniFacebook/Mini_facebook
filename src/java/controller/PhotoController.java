@@ -32,10 +32,14 @@ public class PhotoController implements Serializable {
     }
 
     public Photo getSelected() {
+         if( selected== null){
+        selected= new Photo();
+        }
         return selected;
     }
 
     public void setSelected(Photo selected) {
+        
         this.selected = selected;
     }
 

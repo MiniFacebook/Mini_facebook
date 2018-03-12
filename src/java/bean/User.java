@@ -358,7 +358,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + stop + ", adminatrateur=" + adminatrateur + ", manager=" +", droite"+droite + '}';
+        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", returnBack=" + stop + ", adminatrateur=" + adminatrateur + ", manager=" +", droite"+droite + '}';
     }
 
     

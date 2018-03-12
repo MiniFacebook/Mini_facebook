@@ -32,6 +32,9 @@ public class GroupeAdminController implements Serializable {
     }
 
     public GroupeAdmin getSelected() {
+         if( selected== null){
+        selected= new GroupeAdmin();
+        }
         return selected;
     }
 

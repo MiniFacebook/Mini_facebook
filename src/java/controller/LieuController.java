@@ -32,6 +32,9 @@ public class LieuController implements Serializable {
     }
 
     public Lieu getSelected() {
+         if( selected== null){
+        selected= new Lieu();
+        }
         return selected;
     }
 

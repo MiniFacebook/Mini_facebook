@@ -32,6 +32,9 @@ public class DroitAccesController implements Serializable {
     }
 
     public DroitAcces getSelected() {
+         if( selected== null){
+        selected= new DroitAcces();
+        }
         return selected;
     }
 

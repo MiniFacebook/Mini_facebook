@@ -32,6 +32,9 @@ public class SignalerController implements Serializable {
     }
 
     public Signaler getSelected() {
+         if( selected== null){
+        selected= new Signaler();
+        }
         return selected;
     }
 

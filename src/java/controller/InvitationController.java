@@ -32,6 +32,9 @@ public class InvitationController implements Serializable {
     }
 
     public Invitation getSelected() {
+         if( selected== null){
+        selected= new Invitation();
+        }
         return selected;
     }
 

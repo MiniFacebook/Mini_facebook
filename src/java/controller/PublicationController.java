@@ -32,6 +32,9 @@ public class PublicationController implements Serializable {
     }
 
     public Publication getSelected() {
+         if( selected== null){
+        selected= new Publication();
+        }
         return selected;
     }
 

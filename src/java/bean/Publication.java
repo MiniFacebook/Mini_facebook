@@ -47,7 +47,7 @@ public class Publication implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateModification;
     private Long code; 
-    private Boolean undo;
+    private Boolean returnBack;
     @OneToMany(mappedBy = "publicationSignale")
     private List<Signaler> signalers;
 
@@ -75,12 +75,12 @@ public class Publication implements Serializable {
         this.code = code;
     }
 
-    public Boolean getUndo() {
-        return undo;
+    public Boolean getreturnBack() {
+        return returnBack;
     }
 
-    public void setUndo(Boolean undo) {
-        this.undo = undo;
+    public void setreturnBack(Boolean returnBack) {
+        this.returnBack = returnBack;
     }
     
 
@@ -203,7 +203,7 @@ public class Publication implements Serializable {
 
     @Override
     public String toString() {
-        return "Publication{" + "id=" + id + ", datePublication=" + datePublication + ", texte=" + texte + ", droite=" + droite + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + '}';
+        return "Publication{" + "id=" + id + ", datePublication=" + datePublication + ", texte=" + texte + ", droite=" + droite + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", returnBack=" + returnBack + '}';
     }
 
    

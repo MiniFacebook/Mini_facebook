@@ -32,6 +32,9 @@ public class NotificationItemController implements Serializable {
     }
 
     public NotificationItem getSelected() {
+         if( selected== null){
+        selected= new NotificationItem();
+        }
         return selected;
     }
 

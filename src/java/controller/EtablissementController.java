@@ -32,6 +32,9 @@ public class EtablissementController implements Serializable {
     }
 
     public Etablissement getSelected() {
+         if( selected== null){
+        selected= new Etablissement();
+        }
         return selected;
     }
 

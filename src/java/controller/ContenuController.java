@@ -32,6 +32,9 @@ public class ContenuController implements Serializable {
     }
 
     public Contenu getSelected() {
+         if( selected== null){
+        selected= new Contenu();
+        }
         return selected;
     }
 
