@@ -63,9 +63,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUserTitle_undo}"/>
+                                <h:outputText value="#{bundle.ListUserTitle_stop}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.undo}" disabled="true"/>
+                            <p:selectBooleanCheckbox value="#{item.stop}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -124,7 +124,7 @@
                             <h:outputText value="#{item.login}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{userController.prepareCreate}" update=":UserCreateForm" oncomplete="PF('UserCreateDialog').show()"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{userController.save()}" update=":UserCreateForm" oncomplete="PF('UserCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{userController.destroy}" update=":growl,datalist" disabled="#{empty userController.selected}"/>

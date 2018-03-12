@@ -28,5 +28,10 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-    
+
+    public void saveMethode(User user) {
+        create(user);
+
+    }
+
 }

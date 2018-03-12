@@ -27,6 +27,10 @@ public class UserController implements Serializable {
     private service.UserFacade ejbFacade;
     private List<User> items = null;
     private User selected;
+    
+    public void save(){
+    ejbFacade.saveMethode(selected);
+    }
 
     public UserController() {
     }

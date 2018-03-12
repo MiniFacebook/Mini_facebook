@@ -7,11 +7,13 @@ package bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -28,8 +30,20 @@ public class GroupeItem implements Serializable {
     private Date dateIntegration;
     @ManyToOne
     private User demandeur;
+    
     @ManyToOne
     private Groupe groupe;
+    @OneToMany(mappedBy = "groupeItem")
+    private List<Invitation> invitations;
+
+    public List<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(List<Invitation> invitations) {
+        this.invitations = invitations;
+    }
+    
 
     public Date getDateIntegration() {
         return dateIntegration;

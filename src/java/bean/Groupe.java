@@ -22,8 +22,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Groupe implements Serializable {
-    @OneToMany(mappedBy = "groupe")
-    private List<GroupeItem> groupeItems;
+ 
     @OneToMany(mappedBy = "groupe")
     private List<Publication> publications;
     private static final long serialVersionUID = 1L;
@@ -31,7 +30,7 @@ public class Groupe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nom;
-    private String etat;
+    private Long etat;
     private String type;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCreation;
@@ -43,6 +42,28 @@ public class Groupe implements Serializable {
     private Date dateModification;
     private Long code; 
     private Boolean undo;
+    @OneToMany(mappedBy = "groupe")
+    private List<Invitation> invitations;
+    @OneToMany(mappedBy = "groupe")
+    private List<GroupeItem> groupeItems;
+
+    public List<GroupeItem> getGroupeItems() {
+        return groupeItems;
+    }
+
+    public void setGroupeItems(List<GroupeItem> groupeItems) {
+        this.groupeItems = groupeItems;
+    }
+
+    public List<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(List<Invitation> invitations) {
+        this.invitations = invitations;
+    }
+     
+   
 
     public Date getDateSuppression() {
         return dateSuppression;
@@ -93,13 +114,7 @@ public class Groupe implements Serializable {
         this.id = id;
     }
 
-    public List<GroupeItem> getGroupeItems() {
-        return groupeItems;
-    }
-
-    public void setGroupeItems(List<GroupeItem> groupeItems) {
-        this.groupeItems = groupeItems;
-    }
+  
 
     public List<Publication> getPublications() {
         return publications;
@@ -117,11 +132,11 @@ public class Groupe implements Serializable {
         this.nom = nom;
     }
 
-    public String getEtat() {
+    public Long getEtat() {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(Long etat) {
         this.etat = etat;
     }
 

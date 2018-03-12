@@ -24,6 +24,7 @@ public class NotificationItem implements Serializable {
     private Long id;
     @ManyToOne
     private User concerne;
+    @ManyToOne
     private Notification notification;
     private Boolean vu; 
 

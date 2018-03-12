@@ -39,7 +39,7 @@ public class User implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateModification;
     private Long code; 
-    private Boolean undo;
+    private Boolean stop;
     private Boolean adminatrateur;
     private Boolean droite;
     
@@ -117,12 +117,12 @@ public class User implements Serializable {
         this.code = code;
     }
 
-    public Boolean getUndo() {
-        return undo;
+    public Boolean getStop() {
+        return stop;
     }
 
-    public void setUndo(Boolean undo) {
-        this.undo = undo;
+    public void setStop(Boolean stop) {
+        this.stop = stop;
     }
 
     public List<Videos> getVideoss() {
@@ -358,7 +358,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + undo + ", adminatrateur=" + adminatrateur + ", manager=" +", droite"+droite + '}';
+        return "User{" + "login=" + login + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom + ", telephone=" + telephone + ", sexe=" + sexe + ", dateNaissance=" + dateNaissance + ", timer=" + timer + ", dateSuppression=" + dateSuppression + ", dateModification=" + dateModification + ", code=" + code + ", undo=" + stop + ", adminatrateur=" + adminatrateur + ", manager=" +", droite"+droite + '}';
     }
 
     
